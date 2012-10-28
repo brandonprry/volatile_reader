@@ -33,7 +33,7 @@ namespace VolatileReader.Registry
 					this.WasExported = (timestamp == 0) ? true : false;
 					
 					//fast-forward
-					reader.ReadBytes((int)((0x1000 + 0x20 + 4)-reader.BaseStream.Position));
+					reader.BaseStream.Position += (0x1000 + 0x20 + 4)-reader.BaseStream.Position;
 					
 					this.RootKey = new NodeKey(reader);
 				}
