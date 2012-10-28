@@ -1,0 +1,48 @@
+using System;
+using System.IO;
+
+namespace VolatileReader.Registry
+{
+	public class RegistryHive
+	{
+		public RegistryHive ()
+		{
+		}
+		
+		public RegistryHive(string file)
+		{
+			if (!File.Exists(file))
+				throw new FileNotFoundException();
+			
+			using (FileStream stream = File.OpenRead(file))
+			{
+				using (BinaryReader reader = new BinaryReader(stream))
+				{
+					byte[] buf = reader.ReadBytes(4);
+					
+					if (buf[0] != 'r' || buf[1] != 'e' || buf[2] != 'g' || buf[3] != 'f')
+						throw new NotSupportedException();
+					
+					reader.ReadBytes(8);
+					buf = reader.ReadBytes(8);
+					
+					if (BitConverter.IsLittleEndian)
+						Array.Reverse(buf);
+					
+					long timestamp = BitConverter.ToInt64(buf, 0);
+					this.WasExported = (timestamp == 0) ? true : false;
+					
+					//fast-forward
+					reader.ReadBytes((int)((0x1000 + 0x20 + 4)-reader.BaseStream.Position));
+					
+					this.RootKey = new NodeKey(reader);
+				}
+		}
+		}
+		
+		public NodeKey RootKey { get; set; }
+				
+		public bool WasExported { get; set; }
+	}
+}
+

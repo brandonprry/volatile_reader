@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VolatileReader", "VolatileReader\VolatileReader.csproj", "{19D8EDA6-AFC5-4D0A-856D-AEA41617735D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VolatileReader.Registry", "VolatileReader.Registry\VolatileReader.Registry.csproj", "{2E915FA2-A3D8-425F-A896-42B0E6881CDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VolatileReader.Evt", "VolatileReader.Evt\VolatileReader.Evt.csproj", "{61AD6BE4-0093-4A10-9129-8584A2B9697B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VolatileReader.Evtx", "VolatileReader.Evtx\VolatileReader.Evtx.csproj", "{24C92A90-D779-4D4B-B5A7-80A514D610D8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{19D8EDA6-AFC5-4D0A-856D-AEA41617735D}.Debug|x86.ActiveCfg = Debug|x86
+		{19D8EDA6-AFC5-4D0A-856D-AEA41617735D}.Debug|x86.Build.0 = Debug|x86
+		{19D8EDA6-AFC5-4D0A-856D-AEA41617735D}.Release|x86.ActiveCfg = Release|x86
+		{19D8EDA6-AFC5-4D0A-856D-AEA41617735D}.Release|x86.Build.0 = Release|x86
+		{24C92A90-D779-4D4B-B5A7-80A514D610D8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{24C92A90-D779-4D4B-B5A7-80A514D610D8}.Debug|x86.Build.0 = Debug|Any CPU
+		{24C92A90-D779-4D4B-B5A7-80A514D610D8}.Release|x86.ActiveCfg = Release|Any CPU
+		{24C92A90-D779-4D4B-B5A7-80A514D610D8}.Release|x86.Build.0 = Release|Any CPU
+		{2E915FA2-A3D8-425F-A896-42B0E6881CDD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2E915FA2-A3D8-425F-A896-42B0E6881CDD}.Debug|x86.Build.0 = Debug|Any CPU
+		{2E915FA2-A3D8-425F-A896-42B0E6881CDD}.Release|x86.ActiveCfg = Release|Any CPU
+		{2E915FA2-A3D8-425F-A896-42B0E6881CDD}.Release|x86.Build.0 = Release|Any CPU
+		{61AD6BE4-0093-4A10-9129-8584A2B9697B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{61AD6BE4-0093-4A10-9129-8584A2B9697B}.Debug|x86.Build.0 = Debug|Any CPU
+		{61AD6BE4-0093-4A10-9129-8584A2B9697B}.Release|x86.ActiveCfg = Release|Any CPU
+		{61AD6BE4-0093-4A10-9129-8584A2B9697B}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = VolatileReader\VolatileReader.csproj
+	EndGlobalSection
+EndGlobal
