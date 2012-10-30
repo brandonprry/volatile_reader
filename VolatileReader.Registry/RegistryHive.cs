@@ -26,9 +26,6 @@ namespace VolatileReader.Registry
 					reader.ReadBytes(8);
 					buf = reader.ReadBytes(8);
 					
-					if (BitConverter.IsLittleEndian)
-						Array.Reverse(buf);
-					
 					long timestamp = BitConverter.ToInt64(buf, 0);
 					this.WasExported = (timestamp == 0) ? true : false;
 					
@@ -37,7 +34,7 @@ namespace VolatileReader.Registry
 					
 					this.RootKey = new NodeKey(reader);
 				}
-		}
+			}
 		}
 		
 		public NodeKey RootKey { get; set; }

@@ -16,10 +16,10 @@ namespace VolatileReader.Registry
 			
 			this.NameLength = BitConverter.ToInt16(buf,0);
 			
-			//used later possibly -- datalength
-			byte[] databuf = hive.ReadBytes(4);
+			this.DataLength = BitConverter.ToInt32(hive.ReadBytes(4),0);
 			
-			this.DataOffset = BitConverter.ToInt32(hive.ReadBytes(4),0);
+			//dataoffset
+			byte[] databuf = hive.ReadBytes(4);
 			
 			//type
 			buf = hive.ReadBytes(4);
@@ -36,6 +36,7 @@ namespace VolatileReader.Registry
 				this.Data = databuf;
 			else
 			{
+				this.DataOffset = BitConverter.ToInt32(databuf, 0);
 				hive.BaseStream.Position = 0x1000 + this.DataOffset + 0x04;
 				this.DataLength = BitConverter.ToInt32 (databuf,0);
 				this.Data = hive.ReadBytes(this.DataLength);

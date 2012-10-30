@@ -1,6 +1,8 @@
 using System;
 using Gtk;
 using VolatileReader.Registry;
+using System.IO;
+using VolatileReader.Evt;
 
 namespace VolatileReader
 {
@@ -56,43 +58,101 @@ namespace VolatileReader
 				string file = fc.Filename;
 				Console.WriteLine("Reading: " + file);
 				
-				RegistryHive hive = new RegistryHive(file);
-				
-				TreeView tv = new TreeView();
-				_vbox.Add(tv);
-				
-				TreeViewColumn paths = new TreeViewColumn();
-				paths.Title = "Registry Keys";
-				
-				CellRendererText keyCell = new CellRendererText();
-				paths.PackStart(keyCell, true);
-				
-				TreeViewColumn values = new TreeViewColumn();
-				values.Title = "Registry Values";
-				
-				CellRendererText valuesCell = new CellRendererText();
-				values.PackStart(valuesCell, true);
-				
-				tv.AppendColumn(paths);
-				tv.AppendColumn(values);
-				
-				paths.AddAttribute(keyCell, "text", 0);
-				values.AddAttribute(valuesCell, "text", 1);
-				
-				TreeStore store = new TreeStore(typeof(string), typeof(string));
-				
-				TreeIter root = store.AppendValues(hive.RootKey.Name);
-				
-				AddChildrenToView(hive.RootKey, store, root);
-				
-				tv.Model = store;
-				
+				using (FileStream stream = File.OpenRead(file))
+				{
+					using (BinaryReader reader = new BinaryReader(stream))
+					{
+						byte[] h = reader.ReadBytes(10);
+						
+						if (h[0] == 'r' && h[1] == 'e' && h[2] == 'g' && h[3] == 'f')
+						{
+							RegistryHive hive = new RegistryHive(file);
+							
+							TreeView tv = new TreeView();
+							_vbox.Add(tv);
+							
+							TreeViewColumn paths = new TreeViewColumn();
+							paths.Title = "Registry Keys";
+							
+							CellRendererText keyCell = new CellRendererText();
+							paths.PackStart(keyCell, true);
+							
+							TreeViewColumn values = new TreeViewColumn();
+							values.Title = "Registry Values";
+							
+							CellRendererText valuesCell = new CellRendererText();
+							values.PackStart(valuesCell, true);
+							
+							tv.AppendColumn(paths);
+							tv.AppendColumn(values);
+							
+							paths.AddAttribute(keyCell, "text", 0);
+							values.AddAttribute(valuesCell, "text", 1);
+							
+							TreeStore store = new TreeStore(typeof(string), typeof(string));
+							
+							TreeIter root = store.AppendValues(hive.RootKey.Name);
+							
+							AddChildrenToView(hive.RootKey, store, root);
+							
+							tv.Model = store;
+						}
+						else if (h[4] == 'L' && h[5] == 'f' && h[6] ==  'L' && h[7] ==  'e')
+						{
+							LegacyEventLog log = new LegacyEventLog(file);
+							
+							TreeView tv = new TreeView();
+							_vbox.Add(tv);
+							
+							CellRendererText twText = new CellRendererText();
+							TreeViewColumn timeWritten = new TreeViewColumn();
+							timeWritten.Title = "Time Written";
+							timeWritten.PackStart(twText, true);
+							timeWritten.AddAttribute(twText, "text", 0);
+							
+							CellRendererText tgText = new CellRendererText();
+							TreeViewColumn timeGenerated = new TreeViewColumn();
+							timeGenerated.Title = "Time Generated";
+							timeGenerated.PackStart(tgText, true);
+							timeGenerated.AddAttribute(tgText, "text", 1);
+							
+							CellRendererText snText = new CellRendererText();
+							TreeViewColumn sourceName = new TreeViewColumn();
+							sourceName.Title = "Source Name";
+							sourceName.PackStart(snText, true);
+							sourceName.AddAttribute(snText, "text", 2);
+							
+							CellRendererText cnText = new CellRendererText();
+							TreeViewColumn computerName = new TreeViewColumn();
+							computerName.Title = "Computer Name";
+							computerName.PackStart(cnText, true);
+							computerName.AddAttribute(cnText, "text", 3);
+							
+							CellRendererText sText = new CellRendererText();
+							TreeViewColumn strings = new TreeViewColumn();
+							strings.Title = "Strings";
+							strings.PackStart(sText, true);
+							strings.AddAttribute(sText, "text", 4);
+							
+							tv.AppendColumn(timeWritten);
+							tv.AppendColumn(timeGenerated);
+							tv.AppendColumn(sourceName);
+							tv.AppendColumn(computerName);
+							tv.AppendColumn(strings);
+							
+							TreeStore store = new TreeStore(typeof(string),typeof(string),typeof(string),typeof(string),typeof(string));
+							
+							foreach (LogItem item in log.Items)
+								store.AppendValues(item.TimeWritten.ToString(), item.TimeGenerated.ToString(), item.SourceName, item.ComputerName, item.Strings);
+							
+							tv.Model = store;
+						}
+					}
+				}
 				this.ShowAll();
 			}
 			
 			fc.Destroy();
-			
-			
 		}
 		
 		private void AddChildrenToView(NodeKey key, TreeStore store, TreeIter iter)
