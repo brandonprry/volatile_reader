@@ -24,14 +24,14 @@ namespace VolatileReader.Evt
 					
 					reader.BaseStream.Position = footerOffset;
 					
-					this.Items = new List<LogItem>();
+					this.Items = new List<LegacyLogItem>();
 					for (int c = 0; c <= totalEvents; c++)
-						this.Items.Add(new LogItem(reader));
+						this.Items.Add(new LegacyLogItem(reader));
 				}
 			}
 		}
 		
-		public List<LogItem> Items { get; set; }
+		public List<LegacyLogItem> Items { get; set; }
 	}
 }
 

@@ -4,9 +4,9 @@ using System.Text;
 
 namespace VolatileReader.Evt
 {
-	public class LogItem
+	public class LegacyLogItem
 	{
-		public LogItem (BinaryReader log)
+		public LegacyLogItem (BinaryReader log)
 		{
 			long pos = log.BaseStream.Position;
 			log.BaseStream.Position -= 4;

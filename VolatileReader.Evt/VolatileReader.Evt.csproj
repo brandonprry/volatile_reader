@@ -35,7 +35,7 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="LegacyEventLog.cs" />
-    <Compile Include="LogItem.cs" />
+    <Compile Include="LegacyLogItem.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

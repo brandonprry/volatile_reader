@@ -3,6 +3,7 @@ using Gtk;
 using VolatileReader.Registry;
 using System.IO;
 using VolatileReader.Evt;
+using VolatileReader.Evtx;
 
 namespace VolatileReader
 {
@@ -142,11 +143,18 @@ namespace VolatileReader
 							
 							TreeStore store = new TreeStore(typeof(string),typeof(string),typeof(string),typeof(string),typeof(string));
 							
-							foreach (LogItem item in log.Items)
+							foreach (LegacyLogItem item in log.Items)
 								store.AppendValues(item.TimeWritten.ToString(), item.TimeGenerated.ToString(), item.SourceName, item.ComputerName, item.Strings);
 							
 							tv.Model = store;
 						}
+						else if (h[0] == 'E' && h[1] == 'l' && h[2] == 'f' && h[3] == 'F' && h[4] == 'i' && h[5] == 'l' && h[6] == 'e')
+						{
+							EventLog log = new EventLog(fc.Filename);
+							
+							
+						}
+						else throw new Exception("Unsupported Format.");
 					}
 				}
 				this.ShowAll();
