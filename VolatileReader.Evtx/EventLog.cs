@@ -48,26 +48,27 @@ namespace VolatileReader.Evtx
 						
 						reader.BaseStream.Position = pos + nextOffset; //(512+4096)
 						
-									
-						h = reader.ReadBytes(4);
-						if (h[0] != '*' && h[1] != '*')
-							throw new Exception("Bad event at position: " + (reader.BaseStream.Position-4));
-						
-						
-						int el = reader.ReadInt32();
-						long rid = reader.ReadInt64();
-						ulong ts = reader.ReadUInt64();
-						
-						ts /= 1000;
-						ts -= 116444736000000;
-						int secs = (int)(ts / 10000);
-						
-						DateTime timestamp = GetTime (secs);
-						
 						while (true)
 						{
+							pos = reader.BaseStream.Position;
+							h = reader.ReadBytes(4);
+							if (h[0] != '*' && h[1] != '*')
+								throw new Exception("Bad event at position: " + (reader.BaseStream.Position-4));
+							
+							
+							int el = reader.ReadInt32();
+							long rid = reader.ReadInt64();
+							ulong ts = reader.ReadUInt64();
+							
+							ts /= 1000;
+							ts -= 116444736000000;
+							int secs = (int)(ts / 10000);
+							
+							DateTime timestamp = GetTime (secs);
+							
 							this.Roots.Add(new LogRoot(reader));
 							
+							reader.BaseStream.Position += (el + pos) - reader.BaseStream.Position;
 						}
 					}
 				}

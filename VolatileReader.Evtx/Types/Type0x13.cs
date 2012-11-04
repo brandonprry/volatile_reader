@@ -11,12 +11,21 @@ namespace VolatileReader.Evtx
 			int version = (int)log.ReadByte();
 			int elements = (int)log.ReadByte();
 			
+			byte[] h = log.ReadBytes(4);
+			byte[] l = log.ReadBytes(2);
+			
+			if (BitConverter.IsLittleEndian)
+			{
+				Array.Reverse(h);
+				Array.Reverse(l);
+			}
+			
 			sid += version;
 			
-			uint high = log.ReadUInt32();
-			ushort low = log.ReadUInt16();
+			uint high = BitConverter.ToUInt32(h,0);
+			ushort low = BitConverter.ToUInt16(l,0);
 			
-			uint id = (high << 16) ^ low;
+			long id = (high << 16) ^ low;
 			
 			sid += "-" + id;
 			
@@ -30,7 +39,6 @@ namespace VolatileReader.Evtx
 				sid += "-" + BitConverter.ToInt32(r,0);
 			}
 			
-			//TODO:BUSTED
 			this.SID = sid;
 			
 			this.Length = 8 + elements*4;
