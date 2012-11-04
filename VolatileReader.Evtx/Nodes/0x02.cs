@@ -7,18 +7,14 @@ namespace VolatileReader.Evtx
 	{
 		private _x02 (){}
 		
-		public _x02 (BinaryReader reader)
+		public _x02 (BinaryReader reader, long chunkOffset)
 		{
-			reader.BaseStream.Position -=1;
-			this.Header = reader.ReadByte();
+			
 		}
 		
 		#region INode implementation
-		public int Length {get {return 1;}}
-
-		public int EndOfStream { get; set; }
-		
-		public byte Header {get; private set;}
+		public INode Parent { get; set; }
+		public long ChunkOffset { get; set; }
 		#endregion
 	}
 }

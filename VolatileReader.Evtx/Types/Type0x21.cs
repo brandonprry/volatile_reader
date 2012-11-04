@@ -5,10 +5,10 @@ namespace VolatileReader.Evtx
 {
 	public class Type0x21 : IType
 	{
-		public Type0x21 (BinaryReader log, int size)
+		public Type0x21 (BinaryReader log, int size, long chunkOffset)
 		{
 			Console.WriteLine(log.BaseStream.Position);
-			this.Root = new LogRoot(log);
+			this.Root = new LogRoot(log, chunkOffset);
 		}
 		
 		public LogRoot Root { get; set; }

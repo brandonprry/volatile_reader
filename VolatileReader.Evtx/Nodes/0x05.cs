@@ -9,10 +9,8 @@ namespace VolatileReader.Evtx
 		
 		byte[] _str;
 		
-		public _x05 (BinaryReader log)
+		public _x05 (BinaryReader log, long chunkOffset)
 		{
-			log.BaseStream.Position -= 1;
-			this.Header = log.ReadByte();
 			this.Type  = log.ReadByte();
 			short length = log.ReadInt16();
 			_str = log.ReadBytes((int)(length*2));
@@ -25,15 +23,8 @@ namespace VolatileReader.Evtx
 		public string String { get; set; }
 		
 		#region INode implementation
-		public int Length {
-			get {
-				return 1 + 1 + 2 + _str.Length;
-			}
-		}
-
-		public int EndOfStream { get; set; }
-		
-		public byte Header {get; private set;}
+		public INode Parent { get; set; }
+		public long ChunkOffset { get; set; }
 		#endregion
 	}
 }

@@ -5,11 +5,9 @@ namespace VolatileReader.Evtx
 {
 	public interface INode
 	{
-		int Length { get; }
+		INode Parent { get; set; }
 		
-		byte Header { get; }
-		
-		int EndOfStream { get; set; }
+		long ChunkOffset { get; set; }
 	}
 }
 

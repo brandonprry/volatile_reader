@@ -7,16 +7,14 @@ namespace VolatileReader.Evtx
 	{
 		private _x0C (){}
 		
-		public _x0C (BinaryReader log)
+		public _x0C (BinaryReader log, long chunkOffset)
 		{
-			log.BaseStream.Position -= 1;
-			this.Header = log.ReadByte();
-			
+			this.ChunkOffset = chunkOffset;
 			log.BaseStream.Position += 1;
 			int templateID = log.ReadInt32();
 			int ptr = log.ReadInt32();
 			
-			log.BaseStream.Position = ((int)(log.BaseStream.Position / 4096) * 4096) + ptr;
+			log.BaseStream.Position = this.ChunkOffset + ptr;
 			
 			int nextTemplate = log.ReadInt32();
 			int templateID2 = log.ReadInt32();
@@ -29,15 +27,8 @@ namespace VolatileReader.Evtx
 		}
 		
 		#region INode implementation
-		public int Length {
-			get {
-				return 1 + 1 + 4 + 4 + 4 + 4 + 12 + 4;
-			}
-		}
-
-		public int EndOfStream { get; set; }
-		
-		public byte Header {get; private set;}
+		public INode Parent { get; set; }
+		public long ChunkOffset { get; set; }
 		#endregion
 	}
 }

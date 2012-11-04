@@ -5,9 +5,10 @@ namespace VolatileReader.Evtx
 {
 	public static class LogType
 	{
-		public static IType NewType(BinaryReader log, int size, int type)
+		public static IType NewType(BinaryReader log, int[] sizetype, long chunkOffset)
 		{
-			Console.WriteLine("Starting " + type + " variant at offset: " + (log.BaseStream.Position - 4096));
+			int size = sizetype[0];
+			int type = sizetype[1];
 			
 			if (type == 0x00)
 				return new Type0x00(log, size);
@@ -52,7 +53,7 @@ namespace VolatileReader.Evtx
 			else if (type == 0x15)
 				return new Type0x15(log, size);
 			else if (type == 0x21)
-				return new Type0x21(log, size);
+				return new Type0x21(log, size, chunkOffset);
 			else if (type == 0x81)
 				return new Type0x81(log, size);
 			else if (type == 0x83)
@@ -86,7 +87,7 @@ namespace VolatileReader.Evtx
 			else if (type == 0x95)
 				return new Type0x95(log, size);
 			else
-				throw new Exception("Don't know type: " + type);
+				throw new Exception("Don't know type: " + type + " at offset: " + (log.BaseStream.Position - 1));
 		}
 	}
 }

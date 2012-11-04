@@ -13,19 +13,8 @@ namespace VolatileReader.Evtx
 		}
 		
 		#region INode implementation
-		public int Length {
-			get {
-				throw new NotImplementedException ();
-			}
-		}
-
-		public int EndOfStream { get; set; }
-		
-		public byte Header {
-			get {
-				throw new NotImplementedException ();
-			}
-		}
+		public INode Parent { get; set; }
+		public long ChunkOffset { get; set; }
 		#endregion
 	}
 }

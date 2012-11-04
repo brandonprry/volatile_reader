@@ -17,18 +17,16 @@ namespace VolatileReader.Evtx
 		
 		private _x01 (){}
 		
-		public _x01 (BinaryReader log, int flags)
+		public _x01 (BinaryReader log, long chunkOffset, int flags)
 		{
-			log.BaseStream.Position -= 1;
-			this.Header = log.ReadByte();
-			
+			this.ChunkOffset = chunkOffset;
 			_addFour = ((flags & 4) == 0) ? false : true;
 			
 			log.BaseStream.Position += 2; //short unk1
 			_length = log.ReadInt32();
 			_ptr = log.ReadInt32();
 			
-			log.BaseStream.Position = 4096+_ptr;
+			log.BaseStream.Position = this.ChunkOffset+_ptr;
 			
 			_next = log.ReadInt32();
 			_hash = log.ReadInt16();
@@ -46,15 +44,8 @@ namespace VolatileReader.Evtx
 		public List<INode> ChildNodes { get; private set; }
 		
 		#region INode implementation
-		public int Length {
-			get {
-				return 1 + (_addFour ? 4 : 0) + 2 + 4 + 4 + 4 + 2 + 2 + _str.Length + _posdiff;
-			}
-		}
-
-		public int EndOfStream { get; set; }
-		
-		public byte Header { get; private set; }
+		public INode Parent { get; set; }
+		public long ChunkOffset { get; set; }
 		#endregion
 	}
 }
