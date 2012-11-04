@@ -76,6 +76,9 @@ namespace VolatileReader.Evtx
 						uint crcHeader = reader.ReadUInt32();
 						uint nextOffset = 0x200; //first event in a chunk
 						
+						if (crcData == 0)
+							continue; //empty chunk
+						
 						reader.BaseStream.Position = chunkOffset + nextOffset; //(512+4096)
 						
 						this.Roots = new List<LogRoot>();
@@ -86,7 +89,7 @@ namespace VolatileReader.Evtx
 							h = reader.ReadBytes(2);
 							
 							if (h[0] != '*' || h[1] != '*')
-								throw new Exception("Bad event at position: " + (reader.BaseStream.Position-4));
+								throw new Exception("Bad event at position: " + (reader.BaseStream.Position-2));
 							
 							reader.BaseStream.Position += 2; //junk? always 0x0000?
 							
