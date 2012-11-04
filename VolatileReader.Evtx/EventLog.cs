@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Xml;
 
 namespace VolatileReader.Evtx
 {
@@ -19,15 +20,13 @@ namespace VolatileReader.Evtx
 					
 					reader.BaseStream.Position = 0x1000;
 					
+					//I break out later
 					while (true)
 					{
 						h = reader.ReadBytes(8);
 						
 						if (!(h[0] == 'E' && h[1] == 'l' && h[2] == 'f' && h[3] == 'C' && h[4] == 'h' && h[5] == 'n' && h[6] == 'k'))
-						{
-							Console.WriteLine("Bad chunk at offset: " + reader.BaseStream.Position);
-							continue;
-						}
+							throw new Exception("Bad chunk at offset: " + reader.BaseStream.Position);
 						
 						//we are at the first chunk. all chunks are 0x1000 (4096) bytes away from each other
 						long pos = reader.BaseStream.Position - 8;
@@ -45,58 +44,41 @@ namespace VolatileReader.Evtx
 						
 						uint nextOffset = 0x200; //first event in a chunk
 						
-						this.Items = new List<LogItem>();
+						this.Roots = new List<LogRoot>();
+						
+						reader.BaseStream.Position = pos + nextOffset; //(512+4096)
+						
+									
+						h = reader.ReadBytes(4);
+						if (h[0] != '*' && h[1] != '*')
+							throw new Exception("Bad event at position: " + (reader.BaseStream.Position-4));
+						
+						
+						int el = reader.ReadInt32();
+						long rid = reader.ReadInt64();
+						ulong ts = reader.ReadUInt64();
+						
+						ts /= 1000;
+						ts -= 116444736000000;
+						int secs = (int)(ts / 10000);
+						
+						DateTime timestamp = GetTime (secs);
+						
 						while (true)
 						{
-							reader.BaseStream.Position = pos + nextOffset;
+							this.Roots.Add(new LogRoot(reader));
 							
-							h = reader.ReadBytes(4);
-							if (h[0] != '*' && h[1] != '*')
-								throw new Exception("Bad event");
-							
-							uint el = reader.ReadUInt32();
-							ulong rid = reader.ReadUInt64();
-							ulong ts = reader.ReadUInt64();
-							
-							ts /= 1000;
-							ts -= 116444736000000;
-							int secs = (int)(ts / 10000);
-							
-							DateTime timestamp = GetTime (secs);
-							
-							int rootLength = (int)(el - 28);
-							
-							while (rootLength > 0)
-							{
-								LogItem item = new LogItem(reader, rootLength);
-								
-								if (item != null)
-								{
-									this.Items.Add(item);
-									rootLength -= (int)item.Length;
-								}
-							}
 						}
-						
-						reader.BaseStream.Position = pos + 0x1000;
 					}
 				}
 			}
 		}
 		
+		private List<LogRoot> Roots { get; set; }
+		
 		public List<LogItem> Items { get; set; }
 		
-		public string ToXML()
-		{
-			string xml = "<Events>";
-			
-			foreach (LogItem item in this.Items)
-				xml += item.ToXML();
-			
-			xml += "</Events>";
-			
-			return xml;
-		}
+		public XmlDocument XmlDocument { get; set; }
 		
 		private DateTime GetTime(int time)
         {
@@ -104,7 +86,15 @@ namespace VolatileReader.Evtx
             output = output.AddSeconds(time);
             return output;
         }
-		
 	}
 }
+
+
+
+
+
+
+
+
+
 

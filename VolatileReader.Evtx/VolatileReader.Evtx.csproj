@@ -31,11 +31,78 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="EventLog.cs" />
     <Compile Include="LogItem.cs" />
+    <Compile Include="LogNode.cs" />
+    <Compile Include="LogRoot.cs" />
+    <Compile Include="Nodes\0x0F.cs" />
+    <Compile Include="Nodes\0x00.cs" />
+    <Compile Include="Nodes\0x01.cs" />
+    <Compile Include="Nodes\0x02.cs" />
+    <Compile Include="Nodes\0x03.cs" />
+    <Compile Include="Nodes\0x04.cs" />
+    <Compile Include="Nodes\0x05.cs" />
+    <Compile Include="Nodes\0x06.cs" />
+    <Compile Include="Nodes\0x07.cs" />
+    <Compile Include="Nodes\0x08.cs" />
+    <Compile Include="Nodes\0x09.cs" />
+    <Compile Include="Nodes\0x0A.cs" />
+    <Compile Include="Nodes\0x0B.cs" />
+    <Compile Include="Nodes\0x0C.cs" />
+    <Compile Include="Nodes\0x0D.cs" />
+    <Compile Include="Nodes\0x0E.cs" />
+    <Compile Include="Nodes\Root.cs" />
+    <Compile Include="Nodes\SubstitutionArray.cs" />
+    <Compile Include="Nodes\Template.cs" />
+    <Compile Include="Nodes\INode.cs" />
+    <Compile Include="Types\Type0x00.cs" />
+    <Compile Include="Types\Type0x01.cs" />
+    <Compile Include="Types\Type0x02.cs" />
+    <Compile Include="Types\Type0x03.cs" />
+    <Compile Include="Types\Type0x04.cs" />
+    <Compile Include="Types\Type0x05.cs" />
+    <Compile Include="Types\Type0x06.cs" />
+    <Compile Include="Types\Type0x08.cs" />
+    <Compile Include="Types\Type0x09.cs" />
+    <Compile Include="Types\Type0x0A.cs" />
+    <Compile Include="Types\Type0x0B.cs" />
+    <Compile Include="Types\Type0x0C.cs" />
+    <Compile Include="Types\Type0x0D.cs" />
+    <Compile Include="Types\Type0x0E.cs" />
+    <Compile Include="Types\Type0x0F.cs" />
+    <Compile Include="Types\Type0x10.cs" />
+    <Compile Include="Types\Type0x11.cs" />
+    <Compile Include="Types\Type0x12.cs" />
+    <Compile Include="Types\Type0x13.cs" />
+    <Compile Include="Types\Type0x14.cs" />
+    <Compile Include="Types\Type0x15.cs" />
+    <Compile Include="Types\IType.cs" />
+    <Compile Include="Types\Type0x21.cs" />
+    <Compile Include="Types\Type0x81.cs" />
+    <Compile Include="Types\Type0x83.cs" />
+    <Compile Include="Types\Type0x84.cs" />
+    <Compile Include="Types\Type0x85.cs" />
+    <Compile Include="Types\Type0x86.cs" />
+    <Compile Include="Types\Type0x87.cs" />
+    <Compile Include="Types\Type0x88.cs" />
+    <Compile Include="Types\Type0x89.cs" />
+    <Compile Include="Types\Type0x8A.cs" />
+    <Compile Include="Types\Type0x8B.cs" />
+    <Compile Include="Types\Type0x8C.cs" />
+    <Compile Include="Types\Type0x8F.cs" />
+    <Compile Include="Types\Type0x91.cs" />
+    <Compile Include="Types\Type0x92.cs" />
+    <Compile Include="Types\Type0x94.cs" />
+    <Compile Include="Types\Type0x95.cs" />
+    <Compile Include="LogType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Nodes\" />
+    <Folder Include="Types\" />
+  </ItemGroup>
 </Project>
