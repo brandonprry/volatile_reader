@@ -5,7 +5,7 @@ namespace VolatileReader.Evtx
 {
 	public static class LogType
 	{
-		public static IType NewType(BinaryReader log, int[] sizetype, long chunkOffset)
+		public static IType NewType(BinaryReader log, int[] sizetype, long chunkOffset, LogRoot root)
 		{
 			int size = sizetype[0];
 			int type = sizetype[1];
@@ -53,7 +53,7 @@ namespace VolatileReader.Evtx
 			else if (type == 0x15)
 				return new Type0x15(log, size);
 			else if (type == 0x21)
-				return new Type0x21(log, size, chunkOffset);
+				return new Type0x21(log, size, chunkOffset, root);
 			else if (type == 0x81)
 				return new Type0x81(log, size);
 			else if (type == 0x83)

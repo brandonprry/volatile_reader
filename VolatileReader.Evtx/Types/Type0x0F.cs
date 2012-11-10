@@ -11,10 +11,13 @@ namespace VolatileReader.Evtx
 			byte[] g = log.ReadBytes(16);
 			
 			this.GUID = new Guid(g);
+			
+			this.String = this.GUID.ToString();
 		}
 		
 		public Guid GUID { get; set; }
 		
+		public string String { get; set; }
 		#region IType implementation
 		public byte Type {
 			get {

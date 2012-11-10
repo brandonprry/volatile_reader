@@ -1,18 +1,17 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="VolatileReader.Evtx/LogItem.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="VolatileReader.Evtx/Nodes/0x0E.cs">
     <Files>
-      <File FileName="VolatileReader/VolatileReader.cs" Line="150" Column="8" />
-      <File FileName="VolatileReader.Evt/LegacyEventLog.cs" Line="29" Column="28" />
-      <File FileName="VolatileReader.Evtx/EventLog.cs" Line="76" Column="29" />
-      <File FileName="VolatileReader.Evtx/LogItem.cs" Line="37" Column="5" />
-      <File FileName="VolatileReader.Evt/LegacyLogItem.cs" Line="79" Column="1" />
+      <File FileName="VolatileReader.Evtx/Nodes/0x0E.cs" Line="40" Column="2" />
+      <File FileName="VolatileReader.Evtx/Nodes/0x01.cs" Line="46" Column="1" />
+      <File FileName="VolatileReader.Evtx/LogNode.cs" Line="24" Column="50" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint hitAction="PrintExpression" traceExpression="{Items}" file="/home/bperry/Projects/volatile_reader/VolatileReader/VolatileReader.cs" line="103" />
       <Breakpoint file="/home/bperry/Projects/volatile_reader/VolatileReader.Evtx/LogItem.cs" line="34" />
+      <Breakpoint file="/home/bperry/Projects/volatile_reader/VolatileReader.Evtx/Nodes/0x0E.cs" line="33" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

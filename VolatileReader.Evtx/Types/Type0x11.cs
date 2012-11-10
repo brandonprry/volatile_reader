@@ -16,8 +16,10 @@ namespace VolatileReader.Evtx
 			int secs = (int)(ts / 10000);
 			
 			this.Time = GetTime(secs);
+			this.String = this.Time.ToString();
 		}
 		
+		public string String { get; set; }
 		public DateTime Time { get; set; }
 		#region IType implementation
 		public byte Type {

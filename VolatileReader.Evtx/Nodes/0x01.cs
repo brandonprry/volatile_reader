@@ -15,37 +15,88 @@ namespace VolatileReader.Evtx
 		byte[] _str;
 		bool _addFour = false;
 		
-		private _x01 (){}
-		
-		public _x01 (BinaryReader log, long chunkOffset, int flags)
+		private _x01 ()
 		{
+		}
+		
+		public _x01 (BinaryReader log, long chunkOffset, int flags, ref LogRoot root)
+		{
+			this.Position = log.BaseStream.Position;
+			this.LogRoot = root;
+			this.LogRoot.TagState = 1;
 			this.ChunkOffset = chunkOffset;
 			_addFour = ((flags & 4) == 0) ? false : true;
 			
 			log.BaseStream.Position += 2; //short unk1
-			_length = log.ReadInt32();
-			_ptr = log.ReadInt32();
+			_length = log.ReadInt32 ();
+			_ptr = log.ReadInt32 ();
 			
-			log.BaseStream.Position = this.ChunkOffset+_ptr;
+			log.BaseStream.Position = this.ChunkOffset + _ptr;
 			
-			_next = log.ReadInt32();
-			_hash = log.ReadInt16();
-			_length2 = log.ReadInt16();
+			_next = log.ReadInt32 ();
+			_hash = log.ReadInt16 ();
+			_length2 = log.ReadInt16 ();
 			
-			_str = log.ReadBytes((int)(_length2*2));
-			_posdiff = ((_length2+1)*2)-(_length2*2);
-			log.BaseStream.Position +=_posdiff+(_addFour?4:0);
-			this.String = System.Text.Encoding.Unicode.GetString(_str);
-			Console.WriteLine(this.String);
+			this.Length = _length + ((_length2+1)*2) + 1 + 4 + 2 + 4 + 4 + 2;
+			
+			_str = log.ReadBytes ((int)(_length2 * 2));
+			_posdiff = ((_length2 + 1) * 2) - (_length2 * 2);
+			log.BaseStream.Position += _posdiff + (_addFour ? 4 : 0);
+			this.String = System.Text.Encoding.Unicode.GetString (_str);
+			
+			this.ChildNodes = new List<INode>();
+			
+			while(!root.ReachedEOS)
+			{
+				INode node = LogNode.NewNode(log, this, chunkOffset, root);
+				
+				this.ChildNodes.Add(node);
+				
+				if (node is _x00)
+				{
+					root.ReachedEOS = true;
+					break;
+				}
+			}
 		}
+		
+		public long Position { get; set; }
+		public List<INode> ChildNodes { get; set; }
 		
 		public string String { get; private set; }
 		
-		public List<INode> ChildNodes { get; private set; }
+		public LogRoot LogRoot { get; set; }
+		
+		public int ElementType { get; set; }
+		
+		public bool IsValue { get; set; }
 		
 		#region INode implementation
 		public INode Parent { get; set; }
+
 		public long ChunkOffset { get; set; }
+		
+		public string ToXML ()
+		{
+			string xml = "<" + this.String;
+			
+			foreach (INode child in this.ChildNodes)
+				xml += child.ToXML();
+			
+			if (this.LogRoot.ElementType == 0)
+				xml += " />";
+			else if (this.LogRoot.ElementType == 1)
+				xml += "</" + this.String + ">";
+			else 
+				throw new Exception();
+			
+			return xml;
+		}
+		
+		public long Length 
+		{
+get; set; 
+		}
 		#endregion
 	}
 }

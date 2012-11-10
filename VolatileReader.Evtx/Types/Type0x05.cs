@@ -9,7 +9,8 @@ namespace VolatileReader.Evtx
 		{
 			throw new NotSupportedException();
 		}
-
+		
+		public string String { get; set; }
 		#region IType implementation
 		byte IType.Type {
 			get {

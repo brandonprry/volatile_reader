@@ -9,8 +9,11 @@ namespace VolatileReader.Evtx
 		{
 			this.Length = 0;
 			log.BaseStream.Position += size;
+			this.String = string.Empty;
 		}
-
+		
+		public string String { get; set; }
+		
 		#region IType implementation
 		public byte Type {
 			get {

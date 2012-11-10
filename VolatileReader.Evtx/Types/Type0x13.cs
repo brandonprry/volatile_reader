@@ -40,12 +40,13 @@ namespace VolatileReader.Evtx
 			}
 			
 			this.SID = sid;
-			
+			this.String = this.SID;
 			this.Length = 8 + elements*4;
 		}
 		
 		public string SID { get; set; }
 		
+		public string String { get; set; }
 		#region IType implementation
 		public byte Type {
 			get {

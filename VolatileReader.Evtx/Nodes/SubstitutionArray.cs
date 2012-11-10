@@ -8,11 +8,11 @@ namespace VolatileReader.Evtx
 	{
 		private SubstitutionArray (){}
 		
-		public SubstitutionArray (BinaryReader reader)
+		public SubstitutionArray (BinaryReader reader, long chunkOffset, LogRoot root)
 		{
 			this.Length = 0;
 			this.ElementCount = reader.ReadInt32();
-			
+			this.ChunkOffset = chunkOffset;
 			this.Length += 4;
 			
 			if (this.ElementCount != 0)
@@ -36,7 +36,7 @@ namespace VolatileReader.Evtx
 				this.Types = new List<IType>();
 				
 				for (int i = 0; i < this.ElementCount; i++)
-					this.Types.Add(LogType.NewType(reader, sizetype[i], this.ChunkOffset));
+					this.Types.Add(LogType.NewType(reader, sizetype[i], this.ChunkOffset, root));
 			}
 		}
 		

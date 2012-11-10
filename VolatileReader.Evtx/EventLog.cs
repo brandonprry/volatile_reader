@@ -57,7 +57,6 @@ namespace VolatileReader.Evtx
 					reader.BaseStream.Position = chunkOffset;
 					
 					int n = 1;
-					//I break out later
 					for (int k = 0; k < chunkc; k++)
 					{
 						h = reader.ReadBytes(8);
@@ -74,11 +73,11 @@ namespace VolatileReader.Evtx
 						uint offset = reader.ReadUInt32();
 						uint crcData = reader.ReadUInt32();
 						uint crcHeader = reader.ReadUInt32();
-						uint nextOffset = 0x200; //first event in a chunk
 						
 						if (crcData == 0)
 							continue; //empty chunk
 						
+						uint nextOffset = 0x200; //first event in a chunk
 						reader.BaseStream.Position = chunkOffset + nextOffset; //(512+4096)
 						
 						this.Roots = new List<LogRoot>();
@@ -91,9 +90,9 @@ namespace VolatileReader.Evtx
 							if (h[0] != '*' || h[1] != '*')
 								throw new Exception("Bad event at position: " + (reader.BaseStream.Position-2));
 							
-							reader.BaseStream.Position += 2; //junk? always 0x0000?
+							reader.BaseStream.Position += 2; 
 							
-							uint el = reader.ReadUInt32();
+							int el = reader.ReadInt32();
 							long rid = reader.ReadInt64();
 							ulong ts = reader.ReadUInt64();
 							
@@ -102,16 +101,25 @@ namespace VolatileReader.Evtx
 							
 							int secs = (int)(ts / 10000);
 							DateTime timestamp = GetTime (secs);
-							this.Roots.Add(new LogRoot(reader, chunkOffset) { Parent = this });
+							this.Roots.Add(new LogRoot(reader, chunkOffset, el) { ParentLog = this });
 							
-							reader.BaseStream.Position += (el + pos) - reader.BaseStream.Position;
+							reader.BaseStream.Position = (el + pos);
 						}
 						
-						reader.BaseStream.Position = chunkOffset = (n*0x10000)+0x1000;
-						n++;
+						reader.BaseStream.Position = chunkOffset = (n++*0x10000)+0x1000;
 					}
 				}
 			}
+			
+			string xml = "<Events>";
+			
+			foreach (LogRoot root in this.Roots)
+				xml += root.ToXML();
+			
+			xml += "</Events>";
+			
+			this.XmlDocument = new XmlDocument();
+			this.XmlDocument.LoadXml(xml);
 		}
 		
 		private List<LogRoot> Roots { get; set; }

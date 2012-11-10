@@ -9,8 +9,12 @@ namespace VolatileReader.Evtx
 		{
 			this.Length = 2;
 			this.Data = log.ReadInt16();
+			
+			this.String = this.Data.ToString();
 		}
 		
+		
+		public string String { get; set; }
 		public short Data { get; set; }
 		
 		#region IType implementation

@@ -12,7 +12,6 @@ namespace VolatileReader.Evtx
 			byte[] data = log.ReadBytes(8);
 			
 			this.String = BitConverter.ToString(data);
-			Console.WriteLine(this.String);
 		}
 		
 		public string String { get; set; }

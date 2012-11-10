@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
@@ -55,9 +56,7 @@
     <Compile Include="Nodes\0x0C.cs" />
     <Compile Include="Nodes\0x0D.cs" />
     <Compile Include="Nodes\0x0E.cs" />
-    <Compile Include="Nodes\Root.cs" />
     <Compile Include="Nodes\SubstitutionArray.cs" />
-    <Compile Include="Nodes\Template.cs" />
     <Compile Include="Nodes\INode.cs" />
     <Compile Include="Types\Type0x00.cs" />
     <Compile Include="Types\Type0x01.cs" />
@@ -99,6 +98,7 @@
     <Compile Include="Types\Type0x94.cs" />
     <Compile Include="Types\Type0x95.cs" />
     <Compile Include="LogType.cs" />
+    <Compile Include="Nodes\Template.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

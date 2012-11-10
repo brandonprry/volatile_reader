@@ -7,7 +7,13 @@ namespace VolatileReader.Evtx
 	{
 		INode Parent { get; set; }
 		
+		long Position { get; set; }
+		
 		long ChunkOffset { get; set; }
+		
+		long Length { get; set; }
+		
+		string ToXML();
 	}
 }
 

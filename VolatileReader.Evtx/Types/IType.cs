@@ -7,6 +7,8 @@ namespace VolatileReader.Evtx
 		byte Type { get; set; }
 		
 		int Length { get; set; }
+		
+		string String { get; set; }
 	}
 }
 

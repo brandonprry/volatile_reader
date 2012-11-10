@@ -7,17 +7,46 @@ namespace VolatileReader.Evtx
 	{
 		private _x0E (){}
 		
-		public _x0E (BinaryReader log, long chunkOffset)
+		public _x0E (BinaryReader log, long chunkOffset, ref LogRoot root)
 		{
-			short index = log.ReadInt16();
-			byte type = log.ReadByte();
+			this.Position = log.BaseStream.Position;
+			this.Index = log.ReadInt16();
+			this.Type = log.ReadByte();
 			
-			Console.WriteLine(type);
+			this.LogRoot = root;
+			this.TagState = root.TagState;
 		}
 		
+		public short Index { get; set; }
+		public int TagState { get; set; }
+		public byte Type { get; set; }
+		
 		#region INode implementation
+		public long Position { get; set; }
 		public INode Parent { get; set; }
 		public long ChunkOffset { get; set; }
+		public LogRoot LogRoot { get; set; }
+		public string ToXML() 
+		{ 
+			string xml = this.LogRoot.DeferredXML;
+			this.LogRoot.DeferredXML = string.Empty;
+			
+			if (this.TagState == 0)
+				xml += this.LogRoot.SubstitutionArray.Types[this.Index].String;
+			else if (this.TagState == 1)
+				xml += "=\"" + this.LogRoot.SubstitutionArray.Types[this.Index].String + "\"";
+			else throw new Exception();
+			
+			return xml;
+		}
+		
+		public long Length { 
+			get
+			{
+				return 4;
+			}
+			set {}
+		}
 		#endregion
 	}
 }

@@ -7,13 +7,29 @@ namespace VolatileReader.Evtx
 	{
 		private _x04 (){}
 		
-		public _x04 (BinaryReader reader, long chunkOffset)
+		public _x04 (BinaryReader reader, long chunkOffset, ref LogRoot root)
 		{
+			this.Position = reader.BaseStream.Position;
+			this.LogRoot = root;
+			root.TagState = 0;
+			root.ElementType = 1;
 		}
 		
 		#region INode implementation
 		public INode Parent { get; set; }
+		public long Position { get; set; }
 		public long ChunkOffset { get; set; }
+		public LogRoot LogRoot { get; set; }
+		public string ToXML() { return string.Empty; }
+		public long Length 
+		{
+			get
+			{
+				return 1;
+			}
+			
+			set {}
+		}
 		#endregion
 	}
 }

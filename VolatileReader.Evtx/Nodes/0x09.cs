@@ -15,6 +15,19 @@ namespace VolatileReader.Evtx
 		#region INode implementation
 		public INode Parent { get; set; }
 		public long ChunkOffset { get; set; }
+		public long Position { get; set; }
+		public string String { get; set; }
+		
+		public string ToXML() { throw new Exception(); }
+		public long Length 
+		{
+			get
+			{
+				throw new Exception();
+			}
+			
+			set {}
+		}
 		#endregion
 	}
 }
