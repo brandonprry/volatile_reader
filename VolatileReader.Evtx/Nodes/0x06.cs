@@ -42,7 +42,7 @@ namespace VolatileReader.Evtx
 		public LogRoot LogRoot { get; set; }
 		public string ToXML() 
 		{ 
-			this.LogRoot.DeferredXML += (" " + this.String); 
+			this.LogRoot.DeferedXML += (" " + this.String); 
 			return string.Empty;
 		}
 		public long Length 

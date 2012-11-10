@@ -2,16 +2,76 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
   <MonoDevelop.Ide.Workbench ActiveDocument="VolatileReader.Evtx/Nodes/0x0E.cs">
     <Files>
-      <File FileName="VolatileReader.Evtx/Nodes/0x0E.cs" Line="40" Column="2" />
-      <File FileName="VolatileReader.Evtx/Nodes/0x01.cs" Line="46" Column="1" />
-      <File FileName="VolatileReader.Evtx/LogNode.cs" Line="24" Column="50" />
+      <File FileName="VolatileReader.Evtx/Nodes/0x01.cs" Line="79" Column="25" />
+      <File FileName="VolatileReader.Evtx/Nodes/0x05.cs" Line="46" Column="40" />
+      <File FileName="VolatileReader.Evtx/Nodes/0x06.cs" Line="15" Column="17" />
+      <File FileName="VolatileReader.Evtx/Nodes/0x07.cs" Line="12" Column="44" />
+      <File FileName="VolatileReader.Evtx/Nodes/0x08.cs" Line="11" Column="4" />
+      <File FileName="VolatileReader.Evtx/Nodes/0x09.cs" Line="19" Column="37" />
+      <File FileName="VolatileReader.Evtx/Nodes/0x0A.cs" Line="18" Column="37" />
+      <File FileName="VolatileReader.Evtx/Nodes/0x0B.cs" Line="14" Column="44" />
+      <File FileName="VolatileReader.Evtx/Nodes/0x0C.cs" Line="12" Column="44" />
+      <File FileName="VolatileReader.Evtx/Nodes/0x0D.cs" Line="12" Column="44" />
+      <File FileName="VolatileReader.Evtx/Nodes/0x0E.cs" Line="32" Column="27" />
+      <File FileName="VolatileReader.Evtx/Nodes/INode.cs" Line="16" Column="10" />
+      <File FileName="VolatileReader.Evtx/Nodes/0x02.cs" Line="12" Column="47" />
+      <File FileName="VolatileReader.Evtx/Nodes/0x03.cs" Line="12" Column="47" />
+      <File FileName="VolatileReader.Evtx/Nodes/0x04.cs" Line="12" Column="47" />
+      <File FileName="VolatileReader.Evtx/LogRoot.cs" Line="56" Column="27" />
+      <File FileName="VolatileReader.Evtx/LogNode.cs" Line="17" Column="27" />
+      <File FileName="VolatileReader.Evtx/Nodes/0x00.cs" Line="13" Column="47" />
+      <File FileName="VolatileReader.Evtx/Nodes/0x0F.cs" Line="12" Column="44" />
+      <File FileName="VolatileReader.Evtx/EventLog.cs" Line="117" Column="19" />
+      <File FileName="VolatileReader.Evtx/Types/Type0x21.cs" Line="26" Column="1" />
+      <File FileName="VolatileReader.Evtx/LogType.cs" Line="1" Column="1" />
+      <File FileName="VolatileReader.Evtx/Types/Type0x03.cs" Line="1" Column="1" />
+      <File FileName="VolatileReader.Evtx/Types/Type0x04.cs" Line="8" Column="47" />
+      <File FileName="VolatileReader.Evtx/Types/Type0x06.cs" Line="13" Column="39" />
+      <File FileName="VolatileReader.Evtx/Types/Type0x05.cs" Line="1" Column="1" />
+      <File FileName="VolatileReader.Evtx/Nodes/Template.cs" Line="11" Column="44" />
+      <File FileName="VolatileReader.Evtx/Types/Type0x00.cs" Line="1" Column="1" />
+      <File FileName="VolatileReader.Evtx/Types/Type0x02.cs" Line="1" Column="1" />
+      <File FileName="VolatileReader.Evtx/Types/Type0x01.cs" Line="24" Column="5" />
+      <File FileName="VolatileReader.Evtx/Types/Type0x08.cs" Line="1" Column="1" />
+      <File FileName="VolatileReader.Evtx/Types/Type0x09.cs" Line="1" Column="1" />
+      <File FileName="VolatileReader.Evtx/Types/Type0x0A.cs" Line="1" Column="1" />
+      <File FileName="VolatileReader.Evtx/Types/Type0x0B.cs" Line="1" Column="1" />
+      <File FileName="VolatileReader.Evtx/Types/Type0x0C.cs" Line="1" Column="1" />
+      <File FileName="VolatileReader.Evtx/Types/Type0x0D.cs" Line="1" Column="1" />
+      <File FileName="VolatileReader.Evtx/Types/Type0x0E.cs" Line="1" Column="1" />
+      <File FileName="VolatileReader.Evtx/Types/Type0x0F.cs" Line="30" Column="1" />
+      <File FileName="VolatileReader.Evtx/Types/Type0x10.cs" Line="1" Column="1" />
+      <File FileName="VolatileReader.Evtx/Types/Type0x11.cs" Line="1" Column="1" />
+      <File FileName="VolatileReader.Evtx/Types/Type0x12.cs" Line="1" Column="1" />
+      <File FileName="VolatileReader.Evtx/Types/Type0x13.cs" Line="1" Column="1" />
+      <File FileName="VolatileReader.Evtx/Types/Type0x14.cs" Line="1" Column="1" />
+      <File FileName="VolatileReader.Evtx/Types/Type0x15.cs" Line="14" Column="46" />
+      <File FileName="VolatileReader.Evtx/Types/Type0x81.cs" Line="1" Column="1" />
+      <File FileName="VolatileReader.Evtx/Types/Type0x83.cs" Line="1" Column="1" />
+      <File FileName="VolatileReader.Evtx/Types/Type0x84.cs" Line="1" Column="1" />
+      <File FileName="VolatileReader.Evtx/Types/Type0x85.cs" Line="1" Column="1" />
+      <File FileName="VolatileReader.Evtx/Types/Type0x86.cs" Line="1" Column="1" />
+      <File FileName="VolatileReader.Evtx/Types/Type0x87.cs" Line="1" Column="1" />
+      <File FileName="VolatileReader.Evtx/Types/Type0x88.cs" Line="1" Column="1" />
+      <File FileName="VolatileReader.Evtx/Types/Type0x89.cs" Line="1" Column="1" />
+      <File FileName="VolatileReader.Evtx/Types/Type0x8A.cs" Line="1" Column="1" />
+      <File FileName="VolatileReader.Evtx/Types/Type0x8B.cs" Line="1" Column="1" />
+      <File FileName="VolatileReader.Evtx/Types/Type0x8C.cs" Line="1" Column="1" />
+      <File FileName="VolatileReader.Evtx/Types/Type0x8F.cs" Line="1" Column="1" />
+      <File FileName="VolatileReader.Evtx/Types/Type0x91.cs" Line="1" Column="1" />
+      <File FileName="VolatileReader.Evtx/Types/Type0x92.cs" Line="1" Column="1" />
+      <File FileName="VolatileReader.Evtx/Types/Type0x94.cs" Line="1" Column="1" />
+      <File FileName="VolatileReader.Evtx/Types/Type0x95.cs" Line="1" Column="1" />
+      <File FileName="VolatileReader.Evtx/Nodes/SubstitutionArray.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint hitAction="PrintExpression" traceExpression="{Items}" file="/home/bperry/Projects/volatile_reader/VolatileReader/VolatileReader.cs" line="103" />
       <Breakpoint file="/home/bperry/Projects/volatile_reader/VolatileReader.Evtx/LogItem.cs" line="34" />
-      <Breakpoint file="/home/bperry/Projects/volatile_reader/VolatileReader.Evtx/Nodes/0x0E.cs" line="33" />
+      <Breakpoint file="/home/bperry/Projects/volatile_reader/VolatileReader.Evtx/Types/Type0x21.cs" line="28" />
+      <Breakpoint file="/home/bperry/Projects/volatile_reader/VolatileReader.Evtx/Types/Type0x21.cs" line="15" />
+      <Breakpoint file="/home/bperry/Projects/volatile_reader/VolatileReader.Evtx/EventLog.cs" line="121" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

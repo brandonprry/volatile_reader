@@ -43,8 +43,8 @@ get; set;
 		
 		private string GetXML()
 		{
-			string xml = this.LogRoot.DeferredXML;
-			this.LogRoot.DeferredXML = string.Empty;
+			string xml = this.LogRoot.DeferedXML;
+			this.LogRoot.DeferedXML = string.Empty;
 			if (this.TagState == 0)
 			{
 				return xml + this.String;

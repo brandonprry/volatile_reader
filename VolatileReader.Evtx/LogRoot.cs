@@ -53,7 +53,7 @@ namespace VolatileReader.Evtx
 		
 		public bool ReachedEOS { get; set; }
 		
-		public string DeferredXML { get; set; } 
+		public string DeferedXML { get; set; } 
 		
 		public EventLog ParentLog { get; set; }
 		

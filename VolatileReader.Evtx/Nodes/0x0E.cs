@@ -28,8 +28,8 @@ namespace VolatileReader.Evtx
 		public LogRoot LogRoot { get; set; }
 		public string ToXML() 
 		{ 
-			string xml = this.LogRoot.DeferredXML;
-			this.LogRoot.DeferredXML = string.Empty;
+			string xml = this.LogRoot.DeferedXML;
+			this.LogRoot.DeferedXML = string.Empty;
 			
 			if (this.TagState == 0)
 				xml += this.LogRoot.SubstitutionArray.Types[this.Index].String;
