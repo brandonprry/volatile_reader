@@ -13,6 +13,8 @@ namespace VolatileReader.Evtx
 		
 		long Length { get; set; }
 		
+		bool SelfEnclosed { get; set; }
+		
 		string ToXML();
 	}
 }

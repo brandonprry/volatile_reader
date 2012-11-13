@@ -12,6 +12,7 @@ namespace VolatileReader.Evtx
 		public _x0B (BinaryReader log, long chunkOffset, ref LogRoot root) 
 		{
 			this.Position = log.BaseStream.Position;
+			this.SelfEnclosed = true;
 			short length = log.ReadInt16();
 			_str = log.ReadBytes (length*2);
 			this.String = System.Text.Encoding.Unicode.GetString(_str);
@@ -24,6 +25,9 @@ namespace VolatileReader.Evtx
 		#region INode implementation
 		public long Position { get; set; }
 		public INode Parent { get; set; }
+		
+		public bool SelfEnclosed { get; set; }
+		
 		public long ChunkOffset { get; set; }
 		public LogRoot LogRoot { get; set; }
 		public string ToXML() { throw new Exception(); }

@@ -14,6 +14,7 @@ namespace VolatileReader.Evtx
 		{		
 			this.Position = log.BaseStream.Position;
 			this.ChunkOffset = chunkOffset;
+			this.SelfEnclosed = true;
 			int ptr = log.ReadInt32();
 			
 			log.BaseStream.Position  = this.ChunkOffset + ptr;
@@ -40,6 +41,9 @@ namespace VolatileReader.Evtx
 		public INode Parent { get; set; }
 		public long ChunkOffset { get; set; }
 		public LogRoot LogRoot { get; set; }
+		
+		public bool SelfEnclosed { get; set; }
+		
 		public string ToXML() 
 		{ 
 			this.LogRoot.DeferedXML += (" " + this.String); 

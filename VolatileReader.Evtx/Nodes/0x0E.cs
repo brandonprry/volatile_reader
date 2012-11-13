@@ -13,6 +13,7 @@ namespace VolatileReader.Evtx
 			this.Index = log.ReadInt16();
 			this.Type = log.ReadByte();
 			
+			this.SelfEnclosed = true;
 			this.LogRoot = root;
 			this.TagState = root.TagState;
 		}
@@ -22,6 +23,9 @@ namespace VolatileReader.Evtx
 		public byte Type { get; set; }
 		
 		#region INode implementation
+		
+		public bool SelfEnclosed { get; set; }
+		
 		public long Position { get; set; }
 		public INode Parent { get; set; }
 		public long ChunkOffset { get; set; }

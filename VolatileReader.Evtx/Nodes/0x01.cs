@@ -23,6 +23,7 @@ namespace VolatileReader.Evtx
 		{
 			this.Position = log.BaseStream.Position;
 			this.LogRoot = root;
+			this.SelfEnclosed = false;
 			this.LogRoot.TagState = 1;
 			this.ChunkOffset = chunkOffset;
 			_addFour = ((flags & 4) == 0) ? false : true;
@@ -37,21 +38,26 @@ namespace VolatileReader.Evtx
 			_hash = log.ReadInt16 ();
 			_length2 = log.ReadInt16 ();
 			
-			this.Length = _length + ((_length2+1)*2) + 1 + 4 + 2 + 4 + 4 + 2;
+			this.Length = _length + ((_length2+1)*2) + 1 + 2 + 4 + 4 + 4 + 2 + 2;
 			
 			_str = log.ReadBytes ((int)(_length2 * 2));
-			_posdiff = ((_length2 + 1) * 2) - (_length2 * 2);
+			_posdiff = ((_length2+1) * 2) - (_length2 * 2);
 			log.BaseStream.Position += _posdiff + (_addFour ? 4 : 0);
 			this.String = System.Text.Encoding.Unicode.GetString (_str);
 			
 			this.ChildNodes = new List<INode>();
 			
+			long i = 0;
 			while(!root.ReachedEOS)
 			{
 				INode node = LogNode.NewNode(log, this, chunkOffset, root);
 				
 				this.ChildNodes.Add(node);
 				
+				if (node is _x04 || node is _x03)
+					break;
+				
+				i += node.Length;
 				if (node is _x00)
 				{
 					root.ReachedEOS = true;
@@ -66,8 +72,9 @@ namespace VolatileReader.Evtx
 		public string String { get; private set; }
 		
 		public LogRoot LogRoot { get; set; }
+
+		public bool SelfEnclosed { get; set; }
 		
-		public int ElementType { get; set; }
 		
 		public bool IsValue { get; set; }
 		
@@ -83,12 +90,10 @@ namespace VolatileReader.Evtx
 			foreach (INode child in this.ChildNodes)
 				xml += child.ToXML();
 			
-			if (this.LogRoot.ElementType == 0)
+			if (this.SelfEnclosed)
 				xml += " />";
-			else if (this.LogRoot.ElementType == 1)
+			else
 				xml += "</" + this.String + ">";
-			else 
-				throw new Exception();
 			
 			return xml;
 		}

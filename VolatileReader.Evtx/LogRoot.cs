@@ -12,8 +12,8 @@ namespace VolatileReader.Evtx
 			this.Position = log.BaseStream.Position;
 			this.ChunkOffset = chunkOffset;
 			this.Nodes = new List<INode>();
-		
 			this.ReachedEOS = false;
+			
 			while (!this.ReachedEOS)
 			{
 				INode node = LogNode.NewNode(log, this, chunkOffset, this);
@@ -25,10 +25,22 @@ namespace VolatileReader.Evtx
 					break;
 				}
 			}
-		
 				
-			this.SubstitutionArray = new SubstitutionArray(log, this.ChunkOffset, this);
-
+			this.SubstitutionArray = new SubstitutionArray(log, chunkOffset, this);
+			
+			this.ReachedEOS = false;
+			
+			while (!this.ReachedEOS)
+			{
+				INode node = LogNode.NewNode(log, this, chunkOffset, this);
+				this.Nodes.Add(node);
+				
+				if (node is _x00)
+				{
+					this.ReachedEOS = true;
+					break;
+				}
+			}
 		}
 		
 		public long Position { get; set; }
@@ -36,7 +48,6 @@ namespace VolatileReader.Evtx
 		public SubstitutionArray SubstitutionArray { get; set; }
 		
 		public int TagState { get; set; }
-		
 		public int ElementType { get; set; }
 		
 		public List<INode> Nodes { get; set; }
@@ -56,6 +67,8 @@ namespace VolatileReader.Evtx
 		public string DeferedXML { get; set; } 
 		
 		public EventLog ParentLog { get; set; }
+		
+		public bool SelfEnclosed { get; set; }
 		
 		public string ToXML()
 		{

@@ -14,6 +14,7 @@ namespace VolatileReader.Evtx
 			this.Position = log.BaseStream.Position;
 			this.Type  = log.ReadByte();
 			short length = log.ReadInt16();
+			this.SelfEnclosed = true;
 			
 			this.LogRoot = root;
 			this.TagState = root.TagState;
@@ -32,6 +33,9 @@ namespace VolatileReader.Evtx
 		#region INode implementation
 		public long Position { get; set; }
 		public INode Parent { get; set; }
+		
+		public bool SelfEnclosed { get; set; }
+		
 		public long ChunkOffset { get; set; }
 		public LogRoot LogRoot { get; set; }
 		public string ToXML() { return GetXML();}

@@ -16,6 +16,9 @@ namespace VolatileReader.Evtx
 		public INode Parent { get; set; }
 		public long Position { get; set; }
 		public long ChunkOffset { get; set; }
+		
+		public bool SelfEnclosed { get; set; }
+		
 		public string String { get; set; }
 		public string ToXML() { throw new Exception(); }
 		public long Length 

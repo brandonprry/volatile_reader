@@ -11,10 +11,14 @@ namespace VolatileReader.Evtx
 		{
 			this.LogRoot = root;
 			this.Position = reader.BaseStream.Position;
+			this.SelfEnclosed = true;
 		}
 
 		#region INode implementation
 		public long Position { get; set; }
+		
+		public bool SelfEnclosed { get; set; }
+		
 		public INode Parent { get; set; }
 		public long ChunkOffset { get; set; }
 		public string ToXML() { return string.Empty; }

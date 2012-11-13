@@ -10,6 +10,8 @@ namespace VolatileReader.Evtx
 			int size = sizetype[0];
 			int type = sizetype[1];
 			
+			Console.WriteLine("New type " + type + " at offset: " + (log.BaseStream.Position-chunkOffset-1));
+			
 			if (type == 0x00)
 				return new Type0x00(log, size);
 			else if (type == 0x01)

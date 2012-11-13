@@ -11,6 +11,7 @@ namespace VolatileReader.Evtx
 		{
 			this.Position = log.BaseStream.Position;
 			short length = log.ReadInt16();	
+			this.SelfEnclosed = true;
 			
 			this.LogRoot = root;
 		}
@@ -20,6 +21,9 @@ namespace VolatileReader.Evtx
 		public long Position { get; set; }
 		public long ChunkOffset { get; set; }
 		public LogRoot LogRoot { get; set; }
+		
+		public bool SelfEnclosed { get; set; }
+		
 		public string ToXML() { throw new Exception(); }
 		public long Length 
 		{

@@ -101,8 +101,9 @@ namespace VolatileReader.Evtx
 							
 							int secs = (int)(ts / 10000);
 							DateTime timestamp = GetTime (secs);
-							this.Roots.Add(new LogRoot(reader, chunkOffset, el) { ParentLog = this });
+							LogRoot root = new LogRoot(reader, chunkOffset, el) { ParentLog = this };
 							
+							this.Roots.Add(root);
 							reader.BaseStream.Position = (el + pos);
 						}
 						
@@ -116,6 +117,7 @@ namespace VolatileReader.Evtx
 			foreach (LogRoot root in this.Roots)
 				xml += root.ToXML();
 			
+			Console.WriteLine(xml);
 			xml += "</Events>";
 			
 			this.XmlDocument = new XmlDocument();

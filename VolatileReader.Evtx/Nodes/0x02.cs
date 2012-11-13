@@ -11,6 +11,7 @@ namespace VolatileReader.Evtx
 		{
 			this.Position = reader.BaseStream.Position;
 			this.LogRoot = root;
+			this.SelfEnclosed = true;
 			root.TagState = 0;
 		}
 		
@@ -19,6 +20,9 @@ namespace VolatileReader.Evtx
 		public INode Parent { get; set; }
 		public long ChunkOffset { get; set; }
 		public LogRoot LogRoot { get; set; }
+		
+		public bool SelfEnclosed { get; set; }
+		
 		public string ToXML() { return ">"; }
 		public long Length 
 		{

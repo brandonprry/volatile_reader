@@ -27,7 +27,6 @@ namespace VolatileReader.Evtx
 			int templateLength = log.ReadInt32();
 			
 			this.ChildNodes = new List<INode>();
-			
 			while(!root.ReachedEOS)
 			{
 				INode node = LogNode.NewNode(log, this, chunkOffset, root);
@@ -48,6 +47,9 @@ namespace VolatileReader.Evtx
 		
 		public long Position { get; set; }
 		public List<INode> ChildNodes { get; set; }
+		
+		public bool SelfEnclosed { get; set; }
+		
 		
 		#region INode implementation
 		public string ToXML ()

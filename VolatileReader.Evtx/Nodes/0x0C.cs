@@ -13,6 +13,7 @@ namespace VolatileReader.Evtx
 			this.LogRoot = root;
 			this.ChunkOffset = chunkOffset;
 			
+			this.SelfEnclosed = true;
 			this.Template = new Template(log, chunkOffset, ref root);
 		}
 		
@@ -22,6 +23,9 @@ namespace VolatileReader.Evtx
 		public INode Parent { get; set; }
 		public long Position { get; set; }
 		public long ChunkOffset { get; set; }
+		
+		public bool SelfEnclosed { get; set; }
+		
 		public LogRoot LogRoot { get; set; }
 		public string ToXML() { return this.Template.ToXML(); }
 		public long Length 
