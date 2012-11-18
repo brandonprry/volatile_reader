@@ -19,8 +19,10 @@ namespace VolatileReader.Evtx
 		
 		public bool SelfEnclosed { get; set; }
 		
+		public int SubstitutionArray { get; set; }
 		public INode Parent { get; set; }
 		public long ChunkOffset { get; set; }
+		public string String { get; set; }
 		public string ToXML() { return string.Empty; }
 		public LogRoot LogRoot { get; set; }
 		public long Length 

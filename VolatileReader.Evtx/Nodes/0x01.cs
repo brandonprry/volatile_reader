@@ -21,6 +21,7 @@ namespace VolatileReader.Evtx
 		
 		public _x01 (BinaryReader log, long chunkOffset, int flags, ref LogRoot root)
 		{
+			long pos = log.BaseStream.Position-1;
 			this.Position = log.BaseStream.Position;
 			this.LogRoot = root;
 			this.SelfEnclosed = false;
@@ -32,52 +33,51 @@ namespace VolatileReader.Evtx
 			_length = log.ReadInt32 ();
 			_ptr = log.ReadInt32 ();
 			
-			log.BaseStream.Position = this.ChunkOffset + _ptr;
+			//log.BaseStream.Position = this.ChunkOffset + _ptr;
 			
 			_next = log.ReadInt32 ();
 			_hash = log.ReadInt16 ();
 			_length2 = log.ReadInt16 ();
 			
+			_posdiff = ((_length2+1) * 2) - (_length2 * 2);
 			this.Length = _length + ((_length2+1)*2) + 1 + 2 + 4 + 4 + 4 + 2 + 2;
 			
 			_str = log.ReadBytes ((int)(_length2 * 2));
-			_posdiff = ((_length2+1) * 2) - (_length2 * 2);
 			log.BaseStream.Position += _posdiff + (_addFour ? 4 : 0);
 			this.String = System.Text.Encoding.Unicode.GetString (_str);
 			
 			this.ChildNodes = new List<INode>();
-			
-			long i = 0;
-			while(!root.ReachedEOS)
+			long i = _length -( 1 + 2 + 4 + 4 + 4 + 2 + 2);
+			long k = 0;
+			while(k < i)
 			{
 				INode node = LogNode.NewNode(log, this, chunkOffset, root);
-				
 				this.ChildNodes.Add(node);
-				
-				if (node is _x04 || node is _x03)
-					break;
-				
-				i += node.Length;
+				k+= node.Length;
 				if (node is _x00)
 				{
 					root.ReachedEOS = true;
 					break;
 				}
 			}
+			
+			foreach (INode child in this.ChildNodes)
+				this.Length += child.Length;
 		}
 		
 		public long Position { get; set; }
+		
 		public List<INode> ChildNodes { get; set; }
 		
-		public string String { get; private set; }
+		public string String { get;  set; }
 		
 		public LogRoot LogRoot { get; set; }
 
 		public bool SelfEnclosed { get; set; }
 		
-		
 		public bool IsValue { get; set; }
 		
+		public int SubstitutionArray { get; set; }
 		#region INode implementation
 		public INode Parent { get; set; }
 
@@ -89,12 +89,7 @@ namespace VolatileReader.Evtx
 			
 			foreach (INode child in this.ChildNodes)
 				xml += child.ToXML();
-			
-			if (this.SelfEnclosed)
-				xml += " />";
-			else
-				xml += "</" + this.String + ">";
-			
+
 			return xml;
 		}
 		

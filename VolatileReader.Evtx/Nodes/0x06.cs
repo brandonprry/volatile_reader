@@ -25,7 +25,7 @@ namespace VolatileReader.Evtx
 			int hash = log.ReadInt16();
 			int length2 = log.ReadInt16();
 			
-			this.Length = length2*2 + 1 + 4 + 4 + 4;
+			this.Length = (length2+1)*2 + 1 + 4 + 4 + 4;
 			
 			_str = log.ReadBytes((int)(length2*2));
 			_posdiff = ((length2+1)*2)-(length2*2);
@@ -34,13 +34,14 @@ namespace VolatileReader.Evtx
 			this.String = System.Text.Encoding.Unicode.GetString(_str);
 		}
 		
-		public string String { get; private set; }
+		public string String { get;  set; }
 		
 		#region INode implementation
 		public long Position { get; set; }
 		public INode Parent { get; set; }
 		public long ChunkOffset { get; set; }
 		public LogRoot LogRoot { get; set; }
+		public int SubstitutionArray { get; set; }
 		
 		public bool SelfEnclosed { get; set; }
 		

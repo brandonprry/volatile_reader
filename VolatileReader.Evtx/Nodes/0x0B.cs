@@ -20,13 +20,14 @@ namespace VolatileReader.Evtx
 			this.Length = (length*2) + 2;
 		}
 		
-		public string String { get; private set; }
+		public string String { get;  set; }
 		
 		#region INode implementation
 		public long Position { get; set; }
 		public INode Parent { get; set; }
 		
 		public bool SelfEnclosed { get; set; }
+		public int SubstitutionArray { get; set; }
 		
 		public long ChunkOffset { get; set; }
 		public LogRoot LogRoot { get; set; }

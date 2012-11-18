@@ -16,6 +16,7 @@ namespace VolatileReader.Evtx
 		public INode Parent { get; set; }
 		public long ChunkOffset { get; set; }
 		
+		public int SubstitutionArray { get; set; }
 		public bool SelfEnclosed { get; set; }
 		
 		public long Position { get; set; }

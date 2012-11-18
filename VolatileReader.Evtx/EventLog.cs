@@ -92,7 +92,7 @@ namespace VolatileReader.Evtx
 							
 							reader.BaseStream.Position += 2; 
 							
-							int el = reader.ReadInt32();
+							uint el = reader.ReadUInt32();
 							long rid = reader.ReadInt64();
 							ulong ts = reader.ReadUInt64();
 							
@@ -101,7 +101,9 @@ namespace VolatileReader.Evtx
 							
 							int secs = (int)(ts / 10000);
 							DateTime timestamp = GetTime (secs);
-							LogRoot root = new LogRoot(reader, chunkOffset, el) { ParentLog = this };
+							LogRoot root = new LogRoot(reader, chunkOffset, el) { ParentLog = this, Offset = pos };
+							
+							Console.WriteLine(root.ToXML());
 							
 							this.Roots.Add(root);
 							reader.BaseStream.Position = (el + pos);

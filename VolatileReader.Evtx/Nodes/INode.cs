@@ -15,6 +15,10 @@ namespace VolatileReader.Evtx
 		
 		bool SelfEnclosed { get; set; }
 		
+		string String { get; set; }
+		
+		int SubstitutionArray { get; set; }
+		
 		string ToXML();
 	}
 }

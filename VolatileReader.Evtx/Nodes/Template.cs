@@ -26,13 +26,17 @@ namespace VolatileReader.Evtx
 			Guid templateGuid = new Guid(g);
 			int templateLength = log.ReadInt32();
 			
+			this.Length = 1 + 1 + 4 + 4 + 4 + 4 + 12 + 4;
+			
 			this.ChildNodes = new List<INode>();
-			while(!root.ReachedEOS)
+			long i = templateLength - (1 + 1 + 4 + 4 + 4 + 4 + 12 + 4);
+			long k = 0;
+			while(k < i)
 			{
 				INode node = LogNode.NewNode(log, this, chunkOffset, root);
 				
 				this.ChildNodes.Add(node);
-				
+				k += node.Length;
 				if (node is _x00)
 				{
 					root.ReachedEOS = true;
@@ -40,7 +44,8 @@ namespace VolatileReader.Evtx
 				}
 			}
 			
-			this.Length = 1 + 4 + 4 + 4 + 4 + 12 + 4;
+			foreach (INode node in this.ChildNodes)
+				this.Length += node.Length;
 		}
 		
 		public LogRoot LogRoot { get; set; }
@@ -48,8 +53,10 @@ namespace VolatileReader.Evtx
 		public long Position { get; set; }
 		public List<INode> ChildNodes { get; set; }
 		
+		public int SubstitutionArray { get; set; }
 		public bool SelfEnclosed { get; set; }
 		
+		public string String { get; set; }
 		
 		#region INode implementation
 		public string ToXML ()

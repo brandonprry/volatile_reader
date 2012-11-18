@@ -27,6 +27,8 @@ namespace VolatileReader.Evtx
 		public bool SelfEnclosed { get; set; }
 		
 		public long Position { get; set; }
+		public int SubstitutionArray { get; set; }
+		public string String { get; set; }
 		public INode Parent { get; set; }
 		public long ChunkOffset { get; set; }
 		public LogRoot LogRoot { get; set; }
@@ -36,9 +38,9 @@ namespace VolatileReader.Evtx
 			this.LogRoot.DeferedXML = string.Empty;
 			
 			if (this.TagState == 0)
-				xml += this.LogRoot.SubstitutionArray.Types[this.Index].String;
+				xml += this.LogRoot.SubstitutionArrays[this.SubstitutionArray].Types[this.Index].String;
 			else if (this.TagState == 1)
-				xml += "=\"" + this.LogRoot.SubstitutionArray.Types[this.Index].String + "\"";
+				xml += "=\"" + this.LogRoot.SubstitutionArrays[this.SubstitutionArray].Types[this.Index].String + "\"";
 			else throw new Exception();
 			
 			return xml;

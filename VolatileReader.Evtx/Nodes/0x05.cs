@@ -20,6 +20,7 @@ namespace VolatileReader.Evtx
 			this.TagState = root.TagState;
 			
 			_str = log.ReadBytes((int)(length*2));
+			
 			this.String = System.Text.Encoding.Unicode.GetString(_str);
 			this.Length = length + 1 + (length*2) + 2;
 		}
@@ -29,6 +30,7 @@ namespace VolatileReader.Evtx
 		public string String { get; set; }
 		
 		public int TagState { get; set; }
+		public int SubstitutionArray { get; set; }
 		
 		#region INode implementation
 		public long Position { get; set; }
@@ -50,13 +52,9 @@ get; set;
 			string xml = this.LogRoot.DeferedXML;
 			this.LogRoot.DeferedXML = string.Empty;
 			if (this.TagState == 0)
-			{
 				return xml + this.String;
-			}
 			else if (this.TagState == 1)
-			{
 				return xml + "=\"" + this.String + "\"";
-			}
 			else throw new Exception("Don't know state: " + this.LogRoot.TagState);
 		}
 	}

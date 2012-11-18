@@ -10,10 +10,9 @@ namespace VolatileReader.Evtx
 		
 		public SubstitutionArray (BinaryReader reader, long chunkOffset, LogRoot root)
 		{
-			this.Length = 0;
 			this.ElementCount = reader.ReadInt32();
 			this.ChunkOffset = chunkOffset;
-			this.Length += 4;
+			this.Length = 4;
 			
 			if (this.ElementCount != 0)
 			{
