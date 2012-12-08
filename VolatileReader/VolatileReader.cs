@@ -4,6 +4,7 @@ using VolatileReader.Registry;
 using System.IO;
 using VolatileReader.Evt;
 using VolatileReader.Evtx;
+using VolatileReader.Pcap;
 
 namespace VolatileReader
 {
@@ -150,8 +151,37 @@ namespace VolatileReader
 						}
 						else if (h[0] == 'E' && h[1] == 'l' && h[2] == 'f' && h[3] == 'F' && h[4] == 'i' && h[5] == 'l' && h[6] == 'e')
 						{
-							EventLog log = new EventLog(fc.Filename);
+							EventLog log = new EventLog(fc.Filename);	
+						}
+						else if (h[3] == 0xA1 && h[2] == 0xB2 && h[1] == 0xC3 && h[0] == 0xD4)
+						{
+							PcapFile pcap = new PcapFile(fc.Filename);
 							
+							TreeView tv = new TreeView();
+							
+							_vbox.Add(tv);
+							
+							CellRendererText tsText  = new CellRendererText();
+							TreeViewColumn timestamp = new TreeViewColumn();
+							timestamp.Title = "Timestamp";
+							timestamp.PackStart(tsText, true);
+							timestamp.AddAttribute(tsText, "text", 0);
+							
+							CellRendererText dlText = new CellRendererText();
+							TreeViewColumn datalength = new TreeViewColumn();
+							datalength.Title = "Data Length";
+							datalength.PackStart(dlText, true);
+							datalength.AddAttribute(dlText, "text", 1);
+							
+							tv.AppendColumn(timestamp);
+							tv.AppendColumn(datalength);
+							
+							TreeStore store = new TreeStore(typeof(string), typeof(string));
+							
+							foreach (Packet pkt in pcap.Packets)
+								store.AppendValues(pkt.TimestampSeconds.ToString(), pkt.Length.ToString());
+							
+							tv.Model = store;
 							
 						}
 						else throw new Exception("Unsupported Format.");

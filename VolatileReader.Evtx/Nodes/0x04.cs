@@ -7,7 +7,7 @@ namespace VolatileReader.Evtx
 	{
 		private _x04 (){}
 		
-		public _x04 (BinaryReader reader, long chunkOffset, ref LogRoot root)
+		public _x04 (BinaryReader reader, long chunkOffset, LogRoot root)
 		{
 			this.Position = reader.BaseStream.Position;
 			this.LogRoot = root;

@@ -7,14 +7,14 @@ namespace VolatileReader.Evtx
 	{
 		private _x0C (){}
 		
-		public _x0C (BinaryReader log, long chunkOffset, ref LogRoot root)
+		public _x0C (BinaryReader log, long chunkOffset, LogRoot root)
 		{
 			this.Position = log.BaseStream.Position;
 			this.LogRoot = root;
 			this.ChunkOffset = chunkOffset;
-			this.Length = 1 + 4 + 4 + 4 + 4 + 16 + 4;
+			this.Length = 10;
 			this.SelfEnclosed = true;
-			this.Template = new Template(log, chunkOffset, ref root) { Parent = this };
+			this.Template = new Template(log, chunkOffset, root) { Parent = this };
 			this.Length += this.Template.Length;
 		}
 		

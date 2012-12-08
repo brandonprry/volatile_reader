@@ -67,5 +67,9 @@
       <Project>{2E915FA2-A3D8-425F-A896-42B0E6881CDD}</Project>
       <Name>VolatileReader.Registry</Name>
     </ProjectReference>
+    <ProjectReference Include="..\VolatileReader.Pcap\VolatileReader.Pcap.csproj">
+      <Project>{1682EBA5-EBC0-48EA-9A67-1AFD6CA1D819}</Project>
+      <Name>VolatileReader.Pcap</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

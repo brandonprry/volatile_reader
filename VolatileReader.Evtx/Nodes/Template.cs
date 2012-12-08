@@ -6,7 +6,7 @@ namespace VolatileReader.Evtx
 {
 	public class Template : INode
 	{
-		public Template (BinaryReader log, long chunkOffset, ref LogRoot root)
+		public Template (BinaryReader log, long chunkOffset, LogRoot root)
 		{
 			this.Position = log.BaseStream.Position;
 			this.LogRoot = root;

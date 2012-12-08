@@ -19,7 +19,7 @@ namespace VolatileReader.Evtx
 		{
 		}
 		
-		public _x01 (BinaryReader log, long chunkOffset, int flags, ref LogRoot root)
+		public _x01 (BinaryReader log, long chunkOffset, int flags, LogRoot root)
 		{
 			long pos = log.BaseStream.Position-1;
 			this.Position = log.BaseStream.Position;
@@ -40,14 +40,14 @@ namespace VolatileReader.Evtx
 			_length2 = log.ReadInt16 ();
 			
 			_posdiff = ((_length2+1) * 2) - (_length2 * 2);
-			this.Length = _length + ((_length2+1)*2) + 1 + 2 + 4 + 4 + 4 + 2 + 2;
+			this.Length = _length + 6 + (_addFour ? 4 : 0); //6?
 			
 			_str = log.ReadBytes ((int)(_length2 * 2));
 			log.BaseStream.Position += _posdiff + (_addFour ? 4 : 0);
 			this.String = System.Text.Encoding.Unicode.GetString (_str);
 			
 			this.ChildNodes = new List<INode>();
-			long i = _length -( 1 + 2 + 4 + 4 + 4 + 2 + 2);
+			long i = _length - 11;
 			long k = 0;
 			while(k < i)
 			{

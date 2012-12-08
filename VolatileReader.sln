@@ -9,12 +9,20 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VolatileReader.Evt", "Volat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VolatileReader.Evtx", "VolatileReader.Evtx\VolatileReader.Evtx.csproj", "{24C92A90-D779-4D4B-B5A7-80A514D610D8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VolatileReader.Pcap", "VolatileReader.Pcap\VolatileReader.Pcap.csproj", "{1682EBA5-EBC0-48EA-9A67-1AFD6CA1D819}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VolatileReader.Pagefile", "VolatileReader.Pagefile\VolatileReader.Pagefile.csproj", "{793CF15C-559C-4BE2-8622-5F1CFC3BEB10}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1682EBA5-EBC0-48EA-9A67-1AFD6CA1D819}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1682EBA5-EBC0-48EA-9A67-1AFD6CA1D819}.Debug|x86.Build.0 = Debug|Any CPU
+		{1682EBA5-EBC0-48EA-9A67-1AFD6CA1D819}.Release|x86.ActiveCfg = Release|Any CPU
+		{1682EBA5-EBC0-48EA-9A67-1AFD6CA1D819}.Release|x86.Build.0 = Release|Any CPU
 		{19D8EDA6-AFC5-4D0A-856D-AEA41617735D}.Debug|x86.ActiveCfg = Debug|x86
 		{19D8EDA6-AFC5-4D0A-856D-AEA41617735D}.Debug|x86.Build.0 = Debug|x86
 		{19D8EDA6-AFC5-4D0A-856D-AEA41617735D}.Release|x86.ActiveCfg = Release|x86
@@ -31,6 +39,10 @@ Global
 		{61AD6BE4-0093-4A10-9129-8584A2B9697B}.Debug|x86.Build.0 = Debug|Any CPU
 		{61AD6BE4-0093-4A10-9129-8584A2B9697B}.Release|x86.ActiveCfg = Release|Any CPU
 		{61AD6BE4-0093-4A10-9129-8584A2B9697B}.Release|x86.Build.0 = Release|Any CPU
+		{793CF15C-559C-4BE2-8622-5F1CFC3BEB10}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{793CF15C-559C-4BE2-8622-5F1CFC3BEB10}.Debug|x86.Build.0 = Debug|Any CPU
+		{793CF15C-559C-4BE2-8622-5F1CFC3BEB10}.Release|x86.ActiveCfg = Release|Any CPU
+		{793CF15C-559C-4BE2-8622-5F1CFC3BEB10}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = VolatileReader\VolatileReader.csproj

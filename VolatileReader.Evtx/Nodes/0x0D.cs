@@ -7,7 +7,7 @@ namespace VolatileReader.Evtx
 	{
 		private _x0D (){}
 		
-		public _x0D (BinaryReader log, long chunkOffset, ref LogRoot root)
+		public _x0D (BinaryReader log, long chunkOffset, LogRoot root)
 		{
 			this.Position = log.BaseStream.Position;
 			short index = log.ReadInt16();

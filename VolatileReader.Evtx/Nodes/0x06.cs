@@ -10,7 +10,7 @@ namespace VolatileReader.Evtx
 	
 		private _x06 (){}
 		
-		public _x06 (BinaryReader log, long chunkOffset, ref LogRoot root) 
+		public _x06 (BinaryReader log, long chunkOffset, LogRoot root) 
 		{		
 			this.Position = log.BaseStream.Position;
 			this.ChunkOffset = chunkOffset;
@@ -25,7 +25,10 @@ namespace VolatileReader.Evtx
 			int hash = log.ReadInt16();
 			int length2 = log.ReadInt16();
 			
-			this.Length = (length2+1)*2 + 1 + 4 + 4 + 4;
+			this.Length = 5;
+			
+			if (ptr >= (this.Position - chunkOffset))
+				this.Length += (length2+1)*2;
 			
 			_str = log.ReadBytes((int)(length2*2));
 			_posdiff = ((length2+1)*2)-(length2*2);

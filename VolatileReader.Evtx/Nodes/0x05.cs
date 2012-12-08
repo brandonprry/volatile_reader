@@ -9,7 +9,7 @@ namespace VolatileReader.Evtx
 		
 		byte[] _str;
 		
-		public _x05 (BinaryReader log, long chunkOffset, ref LogRoot root)
+		public _x05 (BinaryReader log, long chunkOffset, LogRoot root)
 		{
 			this.Position = log.BaseStream.Position;
 			this.Type  = log.ReadByte();

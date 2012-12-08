@@ -16,7 +16,6 @@ namespace VolatileReader.Evtx
 			
 			this.SubstitutionArrays = new List<SubstitutionArray>();
 			
-			long i = (log.BaseStream.Position + length) - 35;
 			int k = 0;
 			long l = 0;
 			while (l < length)
@@ -66,6 +65,8 @@ namespace VolatileReader.Evtx
 		public string DeferedXML { get; set; } 
 		
 		public EventLog ParentLog { get; set; }
+		
+		public long AmountRead { get; set; }
 		
 		public long Offset { get; set; }
 		
