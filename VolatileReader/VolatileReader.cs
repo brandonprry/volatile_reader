@@ -5,6 +5,7 @@ using System.IO;
 using VolatileReader.Evt;
 using VolatileReader.Evtx;
 using VolatileReader.Pcap;
+using VolatileReader.Pagefile;
 
 namespace VolatileReader
 {
@@ -184,7 +185,18 @@ namespace VolatileReader
 							tv.Model = store;
 							
 						}
-						else throw new Exception("Unsupported Format.");
+						else
+						{
+							foreach (byte b in h)
+								if (b != 0x00)
+									throw new Exception("Unknown file format");
+							
+							PageFile pagefile = new PageFile(fc.Filename);							
+							string[] strings = pagefile.GetASCIIStrings(6);
+							
+							foreach (string str in strings)
+								Console.WriteLine(str);
+						}
 					}
 				}
 				this.ShowAll();

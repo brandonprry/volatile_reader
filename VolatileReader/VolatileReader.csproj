@@ -71,5 +71,9 @@
       <Project>{1682EBA5-EBC0-48EA-9A67-1AFD6CA1D819}</Project>
       <Name>VolatileReader.Pcap</Name>
     </ProjectReference>
+    <ProjectReference Include="..\VolatileReader.Pagefile\VolatileReader.Pagefile.csproj">
+      <Project>{793CF15C-559C-4BE2-8622-5F1CFC3BEB10}</Project>
+      <Name>VolatileReader.Pagefile</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

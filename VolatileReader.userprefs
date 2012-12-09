@@ -1,6 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="VolatileReader.Evtx/Nodes/0x0E.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="VolatileReader/VolatileReader.cs">
     <Files>
       <File FileName="VolatileReader.Evtx/Nodes/0x01.cs" Line="79" Column="25" />
       <File FileName="VolatileReader.Evtx/Nodes/0x05.cs" Line="46" Column="40" />
@@ -21,7 +21,7 @@
       <File FileName="VolatileReader.Evtx/LogNode.cs" Line="17" Column="27" />
       <File FileName="VolatileReader.Evtx/Nodes/0x00.cs" Line="13" Column="47" />
       <File FileName="VolatileReader.Evtx/Nodes/0x0F.cs" Line="12" Column="44" />
-      <File FileName="VolatileReader.Evtx/EventLog.cs" Line="117" Column="19" />
+      <File FileName="VolatileReader.Evtx/EventLog.cs" Line="1" Column="1" />
       <File FileName="VolatileReader.Evtx/Types/Type0x21.cs" Line="26" Column="1" />
       <File FileName="VolatileReader.Evtx/LogType.cs" Line="1" Column="1" />
       <File FileName="VolatileReader.Evtx/Types/Type0x03.cs" Line="1" Column="1" />
@@ -63,11 +63,18 @@
       <File FileName="VolatileReader.Evtx/Types/Type0x94.cs" Line="1" Column="1" />
       <File FileName="VolatileReader.Evtx/Types/Type0x95.cs" Line="1" Column="1" />
       <File FileName="VolatileReader.Evtx/Nodes/SubstitutionArray.cs" Line="1" Column="1" />
+      <File FileName="VolatileReader.Pcap/PcapFile.cs" Line="18" Column="3" />
+      <File FileName="VolatileReader.Pcap/Packet.cs" Line="17" Column="35" />
+      <File FileName="VolatileReader.Pcap/Packets/HTTPPacket.cs" Line="8" Column="48" />
+      <File FileName="VolatileReader.Pcap/PacketFactory.cs" Line="8" Column="36" />
+      <File FileName="VolatileReader/Main.cs" Line="1" Column="1" />
+      <File FileName="VolatileReader/VolatileReader.cs" Line="141" Column="24" />
+      <File FileName="VolatileReader.Pagefile/Pagefile.cs" Line="10" Column="4" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint hitAction="PrintExpression" traceExpression="{Items}" file="/home/bperry/Projects/volatile_reader/VolatileReader/VolatileReader.cs" line="103" />
+      <Breakpoint hitAction="PrintExpression" traceExpression="{Items}" file="/home/bperry/Projects/volatile_reader/VolatileReader/VolatileReader.cs" line="104" />
       <Breakpoint file="/home/bperry/Projects/volatile_reader/VolatileReader.Evtx/LogItem.cs" line="34" />
       <Breakpoint file="/home/bperry/Projects/volatile_reader/VolatileReader.Evtx/Types/Type0x21.cs" line="28" />
       <Breakpoint file="/home/bperry/Projects/volatile_reader/VolatileReader.Evtx/Types/Type0x21.cs" line="15" />
