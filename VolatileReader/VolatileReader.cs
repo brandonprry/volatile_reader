@@ -183,7 +183,6 @@ namespace VolatileReader
 								store.AppendValues(pkt.TimestampSeconds.ToString(), pkt.Length.ToString());
 							
 							tv.Model = store;
-							
 						}
 						else
 						{

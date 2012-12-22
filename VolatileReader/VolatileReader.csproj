@@ -52,6 +52,16 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="VolatileReader.cs" />
     <Compile Include="gtk-gui\VolatileReader.VolatileReader.cs" />
+    <Compile Include="RegistryReader.cs" />
+    <Compile Include="gtk-gui\VolatileReader.RegistryReader.cs" />
+    <Compile Include="EventLogReader.cs" />
+    <Compile Include="gtk-gui\VolatileReader.EventLogReader.cs" />
+    <Compile Include="LegacyEventLogReader.cs" />
+    <Compile Include="gtk-gui\VolatileReader.LegacyEventLogReader.cs" />
+    <Compile Include="PagefileReader.cs" />
+    <Compile Include="gtk-gui\VolatileReader.PagefileReader.cs" />
+    <Compile Include="PcapReader.cs" />
+    <Compile Include="gtk-gui\VolatileReader.PcapReader.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

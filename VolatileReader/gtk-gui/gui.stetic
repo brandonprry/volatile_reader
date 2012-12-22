@@ -16,4 +16,44 @@
       <placeholder />
     </child>
   </widget>
+  <widget class="Gtk.Window" id="VolatileReader.RegistryReader" design-size="400 300">
+    <property name="MemberName" />
+    <property name="Title" translatable="yes">RegistryReader</property>
+    <property name="WindowPosition">CenterOnParent</property>
+    <child>
+      <placeholder />
+    </child>
+  </widget>
+  <widget class="Gtk.Window" id="VolatileReader.EventLogReader" design-size="400 300">
+    <property name="MemberName" />
+    <property name="Title" translatable="yes">EventLogReader</property>
+    <property name="WindowPosition">CenterOnParent</property>
+    <child>
+      <placeholder />
+    </child>
+  </widget>
+  <widget class="Gtk.Window" id="VolatileReader.LegacyEventLogReader" design-size="400 300">
+    <property name="MemberName" />
+    <property name="Title" translatable="yes">LegacyEventLogReader</property>
+    <property name="WindowPosition">CenterOnParent</property>
+    <child>
+      <placeholder />
+    </child>
+  </widget>
+  <widget class="Gtk.Window" id="VolatileReader.PagefileReader" design-size="400 300">
+    <property name="MemberName" />
+    <property name="Title" translatable="yes">PagefileReader</property>
+    <property name="WindowPosition">CenterOnParent</property>
+    <child>
+      <placeholder />
+    </child>
+  </widget>
+  <widget class="Gtk.Window" id="VolatileReader.PcapReader" design-size="400 300">
+    <property name="MemberName" />
+    <property name="Title" translatable="yes">PcapReader</property>
+    <property name="WindowPosition">CenterOnParent</property>
+    <child>
+      <placeholder />
+    </child>
+  </widget>
 </stetic-interface>

@@ -12,7 +12,7 @@ namespace VolatileReader.Evtx
 		
 		public string String { get; set; }
 		#region IType implementation
-		byte IType.Type {
+		byte Type {
 			get {
 				throw new NotImplementedException ();
 			}

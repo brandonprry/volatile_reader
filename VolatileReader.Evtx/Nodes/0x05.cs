@@ -19,9 +19,17 @@ namespace VolatileReader.Evtx
 			this.LogRoot = root;
 			this.TagState = root.TagState;
 			
-			_str = log.ReadBytes((int)(length*2));
+			IType type = null;
+			switch(this.Type)
+			{
+			case 0x01:
+				type = new Type0x01(log, length);
+				break;
+			default:
+				throw new Exception("Don't know type: " + this.Type);
+			}
 			
-			this.String = System.Text.Encoding.Unicode.GetString(_str);
+			this.String = type.String;
 			this.Length = length + 1 + (length*2) + 2;
 		}
 		

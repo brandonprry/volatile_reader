@@ -68,8 +68,7 @@
       <File FileName="VolatileReader.Pcap/Packets/HTTPPacket.cs" Line="8" Column="48" />
       <File FileName="VolatileReader.Pcap/PacketFactory.cs" Line="8" Column="36" />
       <File FileName="VolatileReader/Main.cs" Line="1" Column="1" />
-      <File FileName="VolatileReader/VolatileReader.cs" Line="141" Column="24" />
-      <File FileName="VolatileReader.Pagefile/Pagefile.cs" Line="10" Column="4" />
+      <File FileName="VolatileReader/VolatileReader.cs" Line="3" Column="31" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

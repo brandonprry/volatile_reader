@@ -9,7 +9,7 @@ namespace VolatileReader.Evtx
 		{
 			this.Length = size;
 			
-			this.String = System.Text.Encoding.Unicode.GetString(log.ReadBytes(size));
+			this.String = System.Text.Encoding.Unicode.GetString(log.ReadBytes(size*2));
 		}
 		
 		public string String { get; set; }
