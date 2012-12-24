@@ -12,21 +12,19 @@ namespace VolatileReader.Evtx
 		{
 			this.ElementCount = reader.ReadInt32();
 			this.ChunkOffset = chunkOffset;
-			this.Length = 4;
+			this.Length = 2;
 			
 			if (this.ElementCount != 0)
 			{
-				int[][] sizetype = new int[this.ElementCount][];
+				short[][] sizetype = new short[this.ElementCount][];
 				
 				for (int i = 0; i < this.ElementCount; i++)
 				{
-					sizetype[i] = new int[2];
+					sizetype[i] = new short[2];
 					
-					int size = reader.ReadInt16();
+					short size = reader.ReadInt16();
 					byte type = reader.ReadByte();
 					reader.BaseStream.Position++; //unknown
-					
-					this.Length += 4;
 					
 					sizetype[i][0] = size;
 					sizetype[i][1] = type;

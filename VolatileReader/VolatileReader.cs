@@ -192,9 +192,24 @@ namespace VolatileReader
 							
 							PageFile pagefile = new PageFile(fc.Filename);							
 							string[] strings = pagefile.GetASCIIStrings(6);
+							string[] vars = pagefile.GetPossibleEnvironmentVariables(strings, 14);
 							
-							foreach (string str in strings)
-								Console.WriteLine(str);
+							TreeView tv = new TreeView();
+							_vbox.Add(tv);
+							CellRendererText envText = new CellRendererText();
+							TreeViewColumn env = new TreeViewColumn();
+							env.Title = "Environment Variable";
+							env.PackStart(envText, true);
+							env.AddAttribute(envText, "text", 0);
+							
+							tv.AppendColumn(env);
+							
+							TreeStore store = new TreeStore(typeof(string));
+							
+							foreach (string v in vars)
+								store.AppendValues(v);
+							
+							tv.Model = store;
 						}
 					}
 				}
@@ -208,7 +223,7 @@ namespace VolatileReader
 		{
 			if (key.ChildValues != null)
 				foreach (ValueKey val in key.ChildValues)
-					store.AppendValues(iter, val.Name, BitConverter.ToString(val.Data));
+					store.AppendValues(iter, val.Name, val.String);
 			
 			if (key.ChildNodes != null)
 			{

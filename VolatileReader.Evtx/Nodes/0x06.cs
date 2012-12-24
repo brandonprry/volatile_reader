@@ -27,11 +27,8 @@ namespace VolatileReader.Evtx
 			
 			this.Length = 5;
 			
-			if (ptr >= (this.Position - chunkOffset))
-				this.Length += (length2+1)*2;
-			
 			_str = log.ReadBytes((int)(length2*2));
-			_posdiff = ((length2+1)*2)-(length2*2);
+			_posdiff = 2;
 			log.BaseStream.Position +=_posdiff;
 			
 			this.String = System.Text.Encoding.Unicode.GetString(_str);
@@ -55,7 +52,7 @@ namespace VolatileReader.Evtx
 		}
 		public long Length 
 		{
-get; set; 
+			get; set; 
 		}
 		#endregion
 	}

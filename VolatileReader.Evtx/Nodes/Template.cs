@@ -24,12 +24,10 @@ namespace VolatileReader.Evtx
 			
 			byte[] g = log.ReadBytes(16);
 			Guid templateGuid = new Guid(g);
-			int templateLength = log.ReadInt32();
-			
-			this.Length = 1 + 1 + 4 + 4 + 4 + 4 + 12 + 4;
+			this.Length = log.ReadInt32();
 			
 			this.ChildNodes = new List<INode>();
-			long i = templateLength - (1 + 1 + 4 + 4 + 4 + 4 + 12 + 4);
+			long i = this.Length - (1 + 1 + 4 + 4 + 4 + 4 + 12 + 4);
 			long k = 0;
 			while(k < i)
 			{
@@ -43,9 +41,6 @@ namespace VolatileReader.Evtx
 					break;
 				}
 			}
-			
-			foreach (INode node in this.ChildNodes)
-				this.Length += node.Length;
 		}
 		
 		public LogRoot LogRoot { get; set; }

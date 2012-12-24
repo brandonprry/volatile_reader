@@ -32,7 +32,7 @@ namespace VolatileReader.Evtx
 			_length = log.ReadInt32 ();
 			_ptr = log.ReadInt32 ();
 			
-			//log.BaseStream.Position = this.ChunkOffset + _ptr;
+			log.BaseStream.Position = this.ChunkOffset + _ptr;
 			
 			_next = log.ReadInt32 ();
 			_hash = log.ReadInt16 ();
@@ -60,8 +60,6 @@ namespace VolatileReader.Evtx
 				}
 			}
 			
-			foreach (INode child in this.ChildNodes)
-				this.Length += child.Length;
 		}
 		
 		public long Position { get; set; }

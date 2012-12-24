@@ -5,10 +5,10 @@ namespace VolatileReader.Evtx
 {
 	public static class LogType
 	{
-		public static IType NewType(BinaryReader log, int[] sizetype, long chunkOffset, LogRoot root)
+		public static IType NewType(BinaryReader log, short[] sizetype, long chunkOffset, LogRoot root)
 		{
-			int size = sizetype[0];
-			int type = sizetype[1];
+			short size = sizetype[0];
+			short type = sizetype[1];
 			
 			Console.WriteLine("New type " + type + " at offset: " + (log.BaseStream.Position-chunkOffset-1));
 			

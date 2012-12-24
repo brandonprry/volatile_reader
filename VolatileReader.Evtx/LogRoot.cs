@@ -24,9 +24,10 @@ namespace VolatileReader.Evtx
 				while (!this.ReachedEOS)
 				{
 					INode node = LogNode.NewNode(log, this, chunkOffset, this);
+					l += node.Length;
 					node.SubstitutionArray = k;
 					this.Nodes.Add(node);
-					l += node.Length;
+				
 					if (node is _x00)
 					{
 						this.ReachedEOS = true;
@@ -35,6 +36,7 @@ namespace VolatileReader.Evtx
 				}
 			
 				this.SubstitutionArrays.Add(new SubstitutionArray(log, chunkOffset, this));
+				k++;
 			}
 		}
 		

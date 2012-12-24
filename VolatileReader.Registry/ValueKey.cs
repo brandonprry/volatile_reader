@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Collections.Generic;
 
 namespace VolatileReader.Registry
 {
@@ -16,17 +17,15 @@ namespace VolatileReader.Registry
 			
 			this.NameLength = BitConverter.ToInt16(buf,0);
 			
-			this.DataLength = BitConverter.ToInt32(hive.ReadBytes(4),0);
+			this.DataLength
+				 = BitConverter.ToInt32(hive.ReadBytes(4),0);
 			
 			//dataoffset
 			byte[] databuf = hive.ReadBytes(4);
 			
-			//type
-			buf = hive.ReadBytes(4);
+			this.ValueType = hive.ReadInt32();
 			
-			this.ValueType = buf[0];
-			
-			//flag and trash, two words
+			//flag and trash, two words -- wordplay is fun
 			hive.BaseStream.Position += 4;
 			
 			buf = hive.ReadBytes(this.NameLength);
@@ -41,6 +40,37 @@ namespace VolatileReader.Registry
 				this.DataLength = BitConverter.ToInt32 (databuf,0);
 				this.Data = hive.ReadBytes(this.DataLength);
 			}
+			
+			if (this.ValueType == 1)
+				this.String = System.Text.Encoding.Unicode.GetString(this.Data);
+			else if (this.ValueType == 2)
+				this.String = System.Text.Encoding.Unicode.GetString(this.Data);
+			else if (this.ValueType == 3)
+				this.String = BitConverter.ToString(this.Data);
+			else if (this.ValueType == 4)
+				this.String = BitConverter.ToString(this.Data);
+			else if (this.ValueType == 7)
+			{
+				List<string> strings = new List<string>();
+				List<byte> bytes = new List<byte>();
+				
+				foreach (byte b in this.Data)
+				{
+					bytes.Add(b);
+					
+					if (b == 0x00)
+					{
+						strings.Add(System.Text.Encoding.Unicode.GetString(bytes.ToArray()));
+						bytes = new List<byte>();
+					}
+				}
+				
+				this.String = string.Empty;
+				foreach (string str in strings)
+					this.String += str + "\t";
+			}
+			
+			Console.WriteLine(this.Name + ": " + this.String);
 		}
 		
 		public short NameLength { get; set; }
@@ -49,11 +79,13 @@ namespace VolatileReader.Registry
 		
 		public int DataOffset { get; set; }
 		
-		public byte ValueType { get; set; }
+		public int ValueType { get; set; }
 		
 		public string Name { get; set; }
 		
 		public byte[] Data { get; set; }
+		
+		public string String { get; set; }
 	}
 }
 
