@@ -6,12 +6,16 @@ using VolatileReader.Evt;
 using VolatileReader.Evtx;
 using VolatileReader.Pcap;
 using VolatileReader.Pagefile;
+using System.Collections.Generic;
 
 namespace VolatileReader
 {
 	public partial class VolatileReader : Gtk.Window
 	{
 		VBox _vbox;
+		TreeView _tv;
+		Entry _searchBox;
+		string _lastFileName;
 		public VolatileReader () : 
 				base("Volatile Reader")
 		{
@@ -59,6 +63,7 @@ namespace VolatileReader
 			if (fc.Run() == (int)ResponseType.Accept) 
 			{
 				string file = fc.Filename;
+				_lastFileName = file;
 				Console.WriteLine("Reading: " + file);
 				
 				using (FileStream stream = File.OpenRead(file))
@@ -71,8 +76,10 @@ namespace VolatileReader
 						{
 							RegistryHive hive = new RegistryHive(file);
 							
-							TreeView tv = new TreeView();
-							_vbox.Add(tv);
+							ScrolledWindow sw = new ScrolledWindow();
+							_tv= new TreeView();
+							sw.Add(_tv);
+							_vbox.Add(sw);
 							
 							TreeViewColumn paths = new TreeViewColumn();
 							paths.Title = "Registry Keys";
@@ -86,8 +93,8 @@ namespace VolatileReader
 							CellRendererText valuesCell = new CellRendererText();
 							values.PackStart(valuesCell, true);
 							
-							tv.AppendColumn(paths);
-							tv.AppendColumn(values);
+							_tv.AppendColumn(paths);
+							_tv.AppendColumn(values);
 							
 							paths.AddAttribute(keyCell, "text", 0);
 							values.AddAttribute(valuesCell, "text", 1);
@@ -98,14 +105,16 @@ namespace VolatileReader
 							
 							AddChildrenToView(hive.RootKey, store, root);
 							
-							tv.Model = store;
+							_tv.Model = store;
 						}
 						else if (h[4] == 'L' && h[5] == 'f' && h[6] ==  'L' && h[7] ==  'e')
 						{
 							LegacyEventLog log = new LegacyEventLog(file);
 							
-							TreeView tv = new TreeView();
-							_vbox.Add(tv);
+							ScrolledWindow sw = new ScrolledWindow();
+							_tv= new TreeView();
+							sw.Add(_tv);
+							_vbox.Add(sw);
 							
 							CellRendererText twText = new CellRendererText();
 							TreeViewColumn timeWritten = new TreeViewColumn();
@@ -137,18 +146,18 @@ namespace VolatileReader
 							strings.PackStart(sText, true);
 							strings.AddAttribute(sText, "text", 4);
 							
-							tv.AppendColumn(timeWritten);
-							tv.AppendColumn(timeGenerated);
-							tv.AppendColumn(sourceName);
-							tv.AppendColumn(computerName);
-							tv.AppendColumn(strings);
+							_tv.AppendColumn(timeWritten);
+							_tv.AppendColumn(timeGenerated);
+							_tv.AppendColumn(sourceName);
+							_tv.AppendColumn(computerName);
+							_tv.AppendColumn(strings);
 							
 							TreeStore store = new TreeStore(typeof(string),typeof(string),typeof(string),typeof(string),typeof(string));
 							
 							foreach (LegacyLogItem item in log.Items)
 								store.AppendValues(item.TimeWritten.ToString(), item.TimeGenerated.ToString(), item.SourceName, item.ComputerName, item.Strings);
 							
-							tv.Model = store;
+							_tv.Model = store;
 						}
 						else if (h[0] == 'E' && h[1] == 'l' && h[2] == 'f' && h[3] == 'F' && h[4] == 'i' && h[5] == 'l' && h[6] == 'e')
 						{
@@ -158,9 +167,10 @@ namespace VolatileReader
 						{
 							PcapFile pcap = new PcapFile(fc.Filename);
 							
-							TreeView tv = new TreeView();
-							
-							_vbox.Add(tv);
+							ScrolledWindow sw = new ScrolledWindow();
+							_tv= new TreeView();
+							sw.Add(_tv);
+							_vbox.Add(sw);
 							
 							CellRendererText tsText  = new CellRendererText();
 							TreeViewColumn timestamp = new TreeViewColumn();
@@ -174,15 +184,15 @@ namespace VolatileReader
 							datalength.PackStart(dlText, true);
 							datalength.AddAttribute(dlText, "text", 1);
 							
-							tv.AppendColumn(timestamp);
-							tv.AppendColumn(datalength);
+							_tv.AppendColumn(timestamp);
+							_tv.AppendColumn(datalength);
 							
 							TreeStore store = new TreeStore(typeof(string), typeof(string));
 							
 							foreach (Packet pkt in pcap.Packets)
 								store.AppendValues(pkt.TimestampSeconds.ToString(), pkt.Length.ToString());
 							
-							tv.Model = store;
+							_tv.Model = store;
 						}
 						else
 						{
@@ -194,22 +204,38 @@ namespace VolatileReader
 							string[] strings = pagefile.GetASCIIStrings(6);
 							string[] vars = pagefile.GetPossibleEnvironmentVariables(strings, 14);
 							
-							TreeView tv = new TreeView();
-							_vbox.Add(tv);
+							HBox searchHbox = new HBox();
+							_vbox.PackStart(searchHbox);
+							
+							Label searchLabel = new Label("Search pagefile for text:");
+							Button searchButton = new Button("Search!");
+							_searchBox = new Entry();
+							
+							searchButton.Clicked += HandleSearchButtonClicked;
+							
+							searchHbox.PackStart(searchLabel);
+							searchHbox.PackStart(_searchBox);
+							searchHbox.PackStart(searchButton);
+							
+							
+							ScrolledWindow sw = new ScrolledWindow();
+							_tv = new TreeView();
+							sw.Add (_tv);
+							_vbox.PackEnd (sw);
 							CellRendererText envText = new CellRendererText();
 							TreeViewColumn env = new TreeViewColumn();
 							env.Title = "Environment Variable";
 							env.PackStart(envText, true);
 							env.AddAttribute(envText, "text", 0);
 							
-							tv.AppendColumn(env);
+							_tv.AppendColumn(env);
 							
 							TreeStore store = new TreeStore(typeof(string));
 							
 							foreach (string v in vars)
 								store.AppendValues(v);
 							
-							tv.Model = store;
+							_tv.Model = store;
 						}
 					}
 				}
@@ -217,6 +243,56 @@ namespace VolatileReader
 			}
 			
 			fc.Destroy();
+		}
+
+		void HandleSearchButtonClicked (object sender, EventArgs e)
+		{
+			this.Remove(_vbox);
+			_vbox = new VBox();
+			this.Add(_vbox);
+			
+			PageFile pagefile = new PageFile(_lastFileName);							
+			string[] strings = pagefile.GetASCIIStrings(6);
+			List<string> matches = new List<string>();
+			
+			System.Text.RegularExpressions.Regex r = new System.Text.RegularExpressions.Regex(_searchBox.Text);
+			foreach (string str in strings)
+				if (r.IsMatch(str))
+					matches.Add(str);
+			
+			HBox searchHbox = new HBox();
+			_vbox.PackStart(searchHbox);
+			
+			Label searchLabel = new Label("Search pagefile for text:");
+			Button searchButton = new Button("Search!");
+			_searchBox = new Entry();
+			
+			searchButton.Clicked += HandleSearchButtonClicked;
+			
+			searchHbox.PackStart(searchLabel);
+			searchHbox.PackStart(_searchBox);
+			searchHbox.PackStart(searchButton);
+			
+			ScrolledWindow sw = new ScrolledWindow();
+			_tv = new TreeView();
+			sw.Add (_tv);
+			_vbox.PackEnd (sw);
+			CellRendererText envText = new CellRendererText();
+			TreeViewColumn env = new TreeViewColumn();
+			env.Title = "Match";
+			env.PackStart(envText, true);
+			env.AddAttribute(envText, "text", 0);
+			
+			_tv.AppendColumn(env);
+			
+			TreeStore store = new TreeStore(typeof(string));
+			
+			foreach (string v in matches)
+				store.AppendValues(v);
+			
+			_tv.Model = store;
+			
+			this.ShowAll();
 		}
 		
 		private void AddChildrenToView(NodeKey key, TreeStore store, TreeIter iter)

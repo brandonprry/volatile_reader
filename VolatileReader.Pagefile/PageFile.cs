@@ -61,7 +61,7 @@ namespace VolatileReader.Pagefile
 								if (strBuilder.Length >= minLength)
 								{
 									strings.Add(strBuilder.ToString());
-									Console.WriteLine(strBuilder);
+									//Console.WriteLine(strBuilder);
 									strBuilder = new StringBuilder();
 								}
 							}
