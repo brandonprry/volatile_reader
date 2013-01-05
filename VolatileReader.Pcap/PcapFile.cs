@@ -24,8 +24,6 @@ namespace VolatileReader.Pcap
 					
 					while (pcap.BaseStream.Position < pcap.BaseStream.Length)
 						this.Packets.Add(PacketFactory.create(pcap));
-					
-					Console.WriteLine("hi");
 				}
 			}
 		}

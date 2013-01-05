@@ -14,6 +14,8 @@ namespace VolatileReader.Registry
 			if (!File.Exists(file))
 				throw new FileNotFoundException();
 			
+			this.Filepath = file;
+			
 			using (FileStream stream = File.OpenRead(file))
 			{
 				using (BinaryReader reader = new BinaryReader(stream))
@@ -36,6 +38,8 @@ namespace VolatileReader.Registry
 				}
 			}
 		}
+		
+		public string Filepath { get; set; }
 		
 		public NodeKey RootKey { get; set; }
 				

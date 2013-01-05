@@ -16,6 +16,7 @@ namespace VolatileReader
 		TreeView _tv;
 		Entry _searchBox;
 		string _lastFileName;
+		
 		public VolatileReader () : 
 				base("Volatile Reader")
 		{
@@ -65,6 +66,8 @@ namespace VolatileReader
 				string file = fc.Filename;
 				_lastFileName = file;
 				Console.WriteLine("Reading: " + file);
+				string[] arr = file.Split(System.IO.Path.DirectorySeparatorChar);
+				this.Title = "VolatileReader -- " + arr[arr.Length-1];
 				
 				using (FileStream stream = File.OpenRead(file))
 				{
@@ -187,12 +190,14 @@ namespace VolatileReader
 							_tv.AppendColumn(timestamp);
 							_tv.AppendColumn(datalength);
 							
-							TreeStore store = new TreeStore(typeof(string), typeof(string));
+							TreeStore store = new TreeStore(typeof(string), typeof(string), typeof(string));
 							
 							foreach (Packet pkt in pcap.Packets)
-								store.AppendValues(pkt.TimestampSeconds.ToString(), pkt.Length.ToString());
+								store.AppendValues(pkt.TimestampSeconds.ToString(), pkt.Length.ToString(), System.Text.Encoding.UTF8.GetString(pkt.Data));
 							
 							_tv.Model = store;
+							_tv.HasTooltip = true;
+							_tv.QueryTooltip += Handle_tvQueryTooltip;
 						}
 						else
 						{
@@ -205,7 +210,7 @@ namespace VolatileReader
 							string[] vars = pagefile.GetPossibleEnvironmentVariables(strings, 14);
 							
 							HBox searchHbox = new HBox();
-							_vbox.PackStart(searchHbox);
+							_vbox.PackStart(searchHbox, true, true, 0);
 							
 							Label searchLabel = new Label("Search pagefile for text:");
 							Button searchButton = new Button("Search!");
@@ -213,15 +218,14 @@ namespace VolatileReader
 							
 							searchButton.Clicked += HandleSearchButtonClicked;
 							
-							searchHbox.PackStart(searchLabel);
-							searchHbox.PackStart(_searchBox);
-							searchHbox.PackStart(searchButton);
-							
+							searchHbox.PackStart(searchLabel, true, true, 0);
+							searchHbox.PackStart(_searchBox, true, true, 0);
+							searchHbox.PackStart(searchButton, true, true, 0);
 							
 							ScrolledWindow sw = new ScrolledWindow();
 							_tv = new TreeView();
 							sw.Add (_tv);
-							_vbox.PackEnd (sw);
+							_vbox.PackEnd (sw, true, true, 0);
 							CellRendererText envText = new CellRendererText();
 							TreeViewColumn env = new TreeViewColumn();
 							env.Title = "Environment Variable";
@@ -245,6 +249,38 @@ namespace VolatileReader
 			fc.Destroy();
 		}
 
+		void Handle_tvQueryTooltip (object o, QueryTooltipArgs args)
+		{
+			try
+			{
+				int binX;
+				int binY;
+				TreeViewColumn col;
+				TreePath path;
+				TreeIter iter;
+				
+				_tv.ConvertWidgetToBinWindowCoords(args.X, args.Y, out binX, out binY);
+
+				if (_tv.GetPathAtPos (binX, binY, out path, out col) && _tv.Model.GetIter (out iter, path))
+				{
+				    string data = (string)_tv.Model.GetValue (iter, 2);
+					args.Tooltip.Text = data;
+					args.RetVal = true;
+				}
+					
+//					this.lsCuesheetData.GetIter(out ti,tp);
+//					if (this.lsCuesheetData.GetValue(ti,8) != null)
+//					{
+//						args.Tooltip.Text = this.lsCuesheetData.GetValue(ti,8).ToString();
+//						args.RetVal = true;
+//					}
+			}
+			catch(Exception)
+			{
+				throw new NotImplementedException();
+			}
+		}
+
 		void HandleSearchButtonClicked (object sender, EventArgs e)
 		{
 			this.Remove(_vbox);
@@ -261,7 +297,7 @@ namespace VolatileReader
 					matches.Add(str);
 			
 			HBox searchHbox = new HBox();
-			_vbox.PackStart(searchHbox);
+			_vbox.PackStart(searchHbox, true, true, 0);
 			
 			Label searchLabel = new Label("Search pagefile for text:");
 			Button searchButton = new Button("Search!");
@@ -269,14 +305,14 @@ namespace VolatileReader
 			
 			searchButton.Clicked += HandleSearchButtonClicked;
 			
-			searchHbox.PackStart(searchLabel);
-			searchHbox.PackStart(_searchBox);
-			searchHbox.PackStart(searchButton);
+			searchHbox.PackStart(searchLabel, true, true, 0);
+			searchHbox.PackStart(_searchBox, true, true, 0);
+			searchHbox.PackStart(searchButton, true, true, 0);
 			
 			ScrolledWindow sw = new ScrolledWindow();
 			_tv = new TreeView();
 			sw.Add (_tv);
-			_vbox.PackEnd (sw);
+			_vbox.PackEnd (sw, true, true, 0);
 			CellRendererText envText = new CellRendererText();
 			TreeViewColumn env = new TreeViewColumn();
 			env.Title = "Match";

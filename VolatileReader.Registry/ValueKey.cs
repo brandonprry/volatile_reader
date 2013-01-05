@@ -35,42 +35,9 @@ namespace VolatileReader.Registry
 				this.Data = databuf;
 			else
 			{
-				this.DataOffset = BitConverter.ToInt32(databuf, 0);
-				hive.BaseStream.Position = 0x1000 + this.DataOffset + 0x04;
-				this.DataLength = BitConverter.ToInt32 (databuf,0);
+				hive.BaseStream.Position = 0x1000 + BitConverter.ToInt32(databuf, 0) + 0x04;
 				this.Data = hive.ReadBytes(this.DataLength);
 			}
-			
-			if (this.ValueType == 1)
-				this.String = System.Text.Encoding.Unicode.GetString(this.Data);
-			else if (this.ValueType == 2)
-				this.String = System.Text.Encoding.Unicode.GetString(this.Data);
-			else if (this.ValueType == 3)
-				this.String = BitConverter.ToString(this.Data);
-			else if (this.ValueType == 4)
-				this.String = BitConverter.ToString(this.Data);
-			else if (this.ValueType == 7)
-			{
-				List<string> strings = new List<string>();
-				List<byte> bytes = new List<byte>();
-				
-				foreach (byte b in this.Data)
-				{
-					bytes.Add(b);
-					
-					if (b == 0x00)
-					{
-						strings.Add(System.Text.Encoding.Unicode.GetString(bytes.ToArray()));
-						bytes = new List<byte>();
-					}
-				}
-				
-				this.String = string.Empty;
-				foreach (string str in strings)
-					this.String += str + "\t";
-			}
-			
-			Console.WriteLine(this.Name + ": " + this.String);
 		}
 		
 		public short NameLength { get; set; }

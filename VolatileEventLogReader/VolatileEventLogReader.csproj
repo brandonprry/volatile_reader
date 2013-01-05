@@ -5,10 +5,10 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{19D8EDA6-AFC5-4D0A-856D-AEA41617735D}</ProjectGuid>
+    <ProjectGuid>{68BFDE60-6201-424A-A9BC-B6ECFF4AED72}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>VolatileReader</RootNamespace>
-    <AssemblyName>VolatileReader</AssemblyName>
+    <RootNamespace>VolatileEventLogReader</RootNamespace>
+    <AssemblyName>VolatileEventLogReader</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -42,7 +42,10 @@
     <Reference Include="glib-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <Reference Include="pango-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <Reference Include="atk-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
-    <Reference Include="gtk-dotnet, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="glade-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="gio-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="gtk-gui\gui.stetic">
@@ -51,42 +54,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="gtk-gui\generated.cs" />
+    <Compile Include="MainWindow.cs" />
+    <Compile Include="gtk-gui\MainWindow.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="VolatileReader.cs" />
-    <Compile Include="gtk-gui\VolatileReader.VolatileReader.cs" />
-    <Compile Include="RegistryReader.cs" />
-    <Compile Include="gtk-gui\VolatileReader.RegistryReader.cs" />
-    <Compile Include="EventLogReader.cs" />
-    <Compile Include="gtk-gui\VolatileReader.EventLogReader.cs" />
-    <Compile Include="LegacyEventLogReader.cs" />
-    <Compile Include="gtk-gui\VolatileReader.LegacyEventLogReader.cs" />
-    <Compile Include="PagefileReader.cs" />
-    <Compile Include="gtk-gui\VolatileReader.PagefileReader.cs" />
-    <Compile Include="PcapReader.cs" />
-    <Compile Include="gtk-gui\VolatileReader.PcapReader.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <ProjectReference Include="..\VolatileReader.Evt\VolatileReader.Evt.csproj">
-      <Project>{61AD6BE4-0093-4A10-9129-8584A2B9697B}</Project>
-      <Name>VolatileReader.Evt</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\VolatileReader.Evtx\VolatileReader.Evtx.csproj">
-      <Project>{24C92A90-D779-4D4B-B5A7-80A514D610D8}</Project>
-      <Name>VolatileReader.Evtx</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\VolatileReader.Registry\VolatileReader.Registry.csproj">
-      <Project>{2E915FA2-A3D8-425F-A896-42B0E6881CDD}</Project>
-      <Name>VolatileReader.Registry</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\VolatileReader.Pcap\VolatileReader.Pcap.csproj">
-      <Project>{1682EBA5-EBC0-48EA-9A67-1AFD6CA1D819}</Project>
-      <Name>VolatileReader.Pcap</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\VolatileReader.Pagefile\VolatileReader.Pagefile.csproj">
-      <Project>{793CF15C-559C-4BE2-8622-5F1CFC3BEB10}</Project>
-      <Name>VolatileReader.Pagefile</Name>
-    </ProjectReference>
-  </ItemGroup>
 </Project>

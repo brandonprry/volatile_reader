@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<stetic-interface>
+  <configuration>
+    <images-root-path>..</images-root-path>
+    <target-gtk-version>3.0</target-gtk-version>
+  </configuration>
+  <import>
+    <widget-library name="../bin/Debug/VolatileRegistryReader.exe" internal="true" />
+  </import>
+  <widget class="Gtk.Window" id="MainWindow" design-size="400 300">
+    <property name="MemberName" />
+    <property name="Title" translatable="yes">MainWindow</property>
+    <property name="WindowPosition">CenterOnParent</property>
+    <signal name="DeleteEvent" handler="OnDeleteEvent" />
+    <child>
+      <placeholder />
+    </child>
+  </widget>
+  <widget class="Gtk.Window" id="VolatileRegistryReader.RegistryReader" design-size="400 300">
+    <property name="MemberName" />
+    <property name="Title" translatable="yes">RegistryReader</property>
+    <property name="WindowPosition">CenterOnParent</property>
+    <child>
+      <placeholder />
+    </child>
+  </widget>
+  <widget class="Gtk.Window" id="VolatileRegistryReader.ValueKeyInfo" design-size="400 300">
+    <property name="MemberName" />
+    <property name="Title" translatable="yes">ValueKeyInfo</property>
+    <property name="WindowPosition">CenterOnParent</property>
+    <child>
+      <placeholder />
+    </child>
+  </widget>
+  <widget class="Gtk.Window" id="VolatileRegistryReader.NodeKeyInfo" design-size="400 300">
+    <property name="MemberName" />
+    <property name="Title" translatable="yes">NodeKeyInfo</property>
+    <property name="WindowPosition">CenterOnParent</property>
+    <child>
+      <placeholder />
+    </child>
+  </widget>
+</stetic-interface>

@@ -54,7 +54,7 @@ namespace VolatileReader.Registry
 
 			buf = hive.ReadBytes(this.NameLength);
 			this.Name = System.Text.Encoding.UTF8.GetString(buf);
-			
+
 			if (this.LFRecordOffset != -1)
 			{
 				hive.BaseStream.Position = 0x1000 + this.LFRecordOffset + 0x04;
@@ -76,11 +76,12 @@ namespace VolatileReader.Registry
 					{
 						hive.BaseStream.Position = topOfList + (i*8);
 						int offset = BitConverter.ToInt32(hive.ReadBytes(4),0);
-						char[] check = hive.ReadChars(4);
+						byte[] check = hive.ReadBytes(4);
 						hive.BaseStream.Position = 0x1000 + offset + 0x04;
 						this.ChildNodes.Add(new NodeKey(hive) { ParentNodeKey = this });
-
 					}
+
+					hive.BaseStream.Position = topOfList + (count * 8);
 				}
 				else
 					Console.WriteLine("Bad LF Record at: " + hive.BaseStream.Position);
