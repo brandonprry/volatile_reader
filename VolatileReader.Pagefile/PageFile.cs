@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.IO;
 using System.Collections.Generic;
 using System.Text;
@@ -21,7 +22,31 @@ namespace VolatileReader.Pagefile
 				if (str.Length > minLength && r.IsMatch(str))
 					vars.Add(str);
 			
-			return vars.ToArray();
+			return vars.OrderByDescending(s => s.Length).ToArray();
+		}
+
+		public string[] GetPossibleEmailAddresses(string[] strings, int minLength)
+		{
+			System.Text.RegularExpressions.Regex r = new System.Text.RegularExpressions.Regex(@"[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}");
+			
+			List<string> vars = new List<string>();
+			foreach(string str in strings)
+				if (str.Length > minLength && r.IsMatch(str))
+					vars.Add(str);
+			
+			return vars.OrderByDescending(s => s.Length).ToArray();
+		}
+
+		public string[] GetPossibleFirefoxExtensions(string[] strings)
+		{
+			System.Text.RegularExpressions.Regex r = new System.Text.RegularExpressions.Regex(@"\Mozilla Firefox\extensions\");
+			
+			List<string> vars = new List<string>();
+			foreach(string str in strings)
+				if (r.IsMatch(str))
+					vars.Add(str);
+			
+			return vars.OrderByDescending(s => s.Length).ToArray();
 		}
 		
 		public string Filepath { get; set; }

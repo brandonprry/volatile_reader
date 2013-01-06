@@ -1,15 +1,13 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="VolatileReader/Main.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="VolatilePagefileReader/MainWindow.cs">
     <Files>
-      <File FileName="VolatileRegistryReader/MainWindow.cs" Line="138" Column="1" />
-      <File FileName="VolatileReader/VolatileReader.cs" Line="208" Column="27" />
-      <File FileName="VolatileRegistryReader/Main.cs" Line="1" Column="1" />
-      <File FileName="VolatileReader.Registry/RegistryHive.cs" Line="14" Column="27" />
-      <File FileName="VolatileReader.Registry/NodeKey.cs" Line="94" Column="5" />
-      <File FileName="VolatileReader.Registry/ValueKey.cs" Line="11" Column="35" />
-      <File FileName="VolatileReader/Main.cs" Line="2" Column="7" />
-      <File FileName="VolatileRegistryReader/Hives/SECURITYHive.cs" Line="10" Column="4" />
+      <File FileName="VolatilePagefileReader/MainWindow.cs" Line="181" Column="21" />
+      <File FileName="VolatileRegistryReader/MainWindow.cs" Line="78" Column="2" />
+      <File FileName="VolatileReader/VolatileReader.cs" Line="233" Column="38" />
+      <File FileName="VolatileReader.Pagefile/PageFile.cs" Line="18" Column="1" />
+      <File FileName="VolatilePagefileReader/Main.cs" Line="13" Column="1" />
+      <File FileName="VolatileReader/PagefileReader.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
@@ -19,7 +17,6 @@
       <Breakpoint file="/home/bperry/Projects/volatile_reader/VolatileReader.Evtx/Types/Type0x21.cs" line="28" />
       <Breakpoint file="/home/bperry/Projects/volatile_reader/VolatileReader.Evtx/Types/Type0x21.cs" line="15" />
       <Breakpoint file="/home/bperry/Projects/volatile_reader/VolatileReader.Evtx/EventLog.cs" line="121" />
-      <Breakpoint file="/home/bperry/Projects/volatile_reader/VolatileRegistryReader/MainWindow.cs" line="158" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

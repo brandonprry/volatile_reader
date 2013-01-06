@@ -16,15 +16,15 @@ namespace VolatileRegistryReader
 
 			Label name = new Label("Name: " + key.Name);
 
-			if (key.ValueType == 1)
+			if (key.ValueType == 1 && key.Data != null)
 				this.String = System.Text.Encoding.Unicode.GetString(key.Data);
-			else if (key.ValueType == 2)
+			else if (key.ValueType == 2 && key.Data != null)
 				this.String = System.Text.Encoding.Unicode.GetString(key.Data);
-			else if (key.ValueType == 3)
+			else if (key.ValueType == 3 && key.Data != null)
 				this.String = BitConverter.ToString(key.Data).Replace('-', ' ');
-			else if (key.ValueType == 4)
+			else if (key.ValueType == 4 && key.Data != null)
 				this.String = BitConverter.ToString(key.Data).Replace('-', ' ');
-			else if (key.ValueType == 7)
+			else if (key.ValueType == 7 && key.Data != null)
 			{
 				List<string> strings = new List<string>();
 				List<byte> bytes = new List<byte>();

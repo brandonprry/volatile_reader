@@ -11,11 +11,11 @@ namespace VolatileRegistryReader
 		{
 			this.Build ();
 
-			int childNodes = key.ChildNodes.Count;
-			int values = key.ChildValues.Count;
-			byte[] classnameData = key.ClassnameData;
-			string name = key.Name;
-			DateTime timestamp = key.Timestamp;
+			int childNodes = key.ChildNodes != null ? key.ChildNodes.Count : 0;
+			int values = key.ChildValues != null ? key.ChildValues.Count : 0;
+			byte[] classnameData = key.ClassnameData != null ? key.ClassnameData : new byte[] {};
+			string name = key.Name != null ? key.Name : string.Empty;
+			DateTime timestamp = key.Timestamp != null ? key.Timestamp : DateTime.MinValue;
 
 			Label nameLabel = new Label("Name: " + name);
 			Label timestampLabel = new Label("Timestamp: " + timestamp.ToLongDateString());

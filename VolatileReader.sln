@@ -69,6 +69,6 @@ Global
 		{793CF15C-559C-4BE2-8622-5F1CFC3BEB10}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = VolatileRegistryReader\VolatileRegistryReader.csproj
+		StartupItem = VolatilePagefileReader\VolatilePagefileReader.csproj
 	EndGlobalSection
 EndGlobal
