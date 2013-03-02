@@ -15,7 +15,7 @@ namespace VolatileReader.Evtx
 				INode node = LogNode.NewNode(log, null, chunkOffset, root);
 				this.ChildNodes.Add(node);
 				
-				if (node is _x00)
+				if (node is _x00 || root.ReachedEOS)
 				{
 					root.ReachedEOS = true;
 					break;

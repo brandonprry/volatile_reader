@@ -25,21 +25,16 @@ namespace VolatileReader.Evtx
 			byte[] g = log.ReadBytes(16);
 			Guid templateGuid = new Guid(g);
 			this.Length = log.ReadInt32();
-			
+			long i = this.Length;
 			this.ChildNodes = new List<INode>();
-			long i = this.Length - (1 + 1 + 4 + 4 + 4 + 4 + 12 + 4);
-			long k = 0;
-			while(k < i)
+			while(i >0 && !root.ReachedEOS)
 			{
+				Console.WriteLine("Current length: " + i);
 				INode node = LogNode.NewNode(log, this, chunkOffset, root);
-				
 				this.ChildNodes.Add(node);
-				k += node.Length;
+				i -= node.Length;
 				if (node is _x00)
-				{
 					root.ReachedEOS = true;
-					break;
-				}
 			}
 		}
 		

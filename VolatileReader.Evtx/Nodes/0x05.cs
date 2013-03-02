@@ -9,7 +9,7 @@ namespace VolatileReader.Evtx
 		
 		byte[] _str;
 		
-		public _x05 (BinaryReader log, long chunkOffset, LogRoot root)
+		public _x05 (BinaryReader log, long chunkOffset, LogRoot root, INode parent)
 		{
 			this.Position = log.BaseStream.Position;
 			this.Type  = log.ReadByte();
@@ -17,20 +17,21 @@ namespace VolatileReader.Evtx
 			this.SelfEnclosed = true;
 			
 			this.LogRoot = root;
+			
 			this.TagState = root.TagState;
 			
 			IType type = null;
 			switch(this.Type)
 			{
 			case 0x01:
-				type = new Type0x01(log, length);
+				type = new Type0x01(log, length, false);
 				break;
 			default:
 				throw new Exception("Don't know type: " + this.Type);
 			}
 			
 			this.String = type.String;
-			this.Length = length + 1 + (length*2) + 2;
+			this.Length =  ((length)*2) + 4;
 		}
 		
 		public byte Type { get; private set; }

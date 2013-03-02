@@ -16,7 +16,7 @@ public partial class MainWindow: Gtk.Window
 	string[] _currentStrs = null;
 	Dictionary<string, string> _regexes = null;
 	Entry _regx = null;
-	ComboBoxText _regxTitle = null;
+	ComboBox _regxTitle = null;
 
 	public MainWindow (): base (Gtk.WindowType.Toplevel)
 	{
@@ -139,7 +139,7 @@ public partial class MainWindow: Gtk.Window
 
 			_vbox.PackStart(bar, false, false, 0);
 
-			_regxTitle = new ComboBoxText();
+			_regxTitle = ComboBox.NewText();
 			_regxTitle.Changed += HandleChanged;
 
 			foreach (KeyValuePair<string, string> pair in _regexes)
@@ -187,7 +187,7 @@ public partial class MainWindow: Gtk.Window
 
 	void HandleChanged (object sender, EventArgs e)
 	{
-		ComboBoxText box = sender as ComboBoxText;
+		ComboBox box = sender as ComboBox;
 		TreeIter iter;
 		box.GetActiveIter(out iter);
 

@@ -19,7 +19,7 @@ namespace VolatileReader.Evtx
 		{
 		}
 		
-		public _x01 (BinaryReader log, long chunkOffset, int flags, LogRoot root)
+		public _x01 (BinaryReader log, long chunkOffset, int flags, LogRoot root, INode parent)
 		{
 			this.Position = log.BaseStream.Position;
 			this.LogRoot = root;
@@ -39,27 +39,26 @@ namespace VolatileReader.Evtx
 			_length2 = log.ReadInt16 ();
 			
 			_posdiff = 2;
-			this.Length = _length + 6 + (_addFour ? 4 : 0); //6?
+			this.Length = _length + 6; //6?
 			
 			_str = log.ReadBytes ((int)(_length2 * 2));
 			log.BaseStream.Position += _posdiff + (_addFour ? 4 : 0);
 			this.String = System.Text.Encoding.Unicode.GetString (_str);
 			
 			this.ChildNodes = new List<INode>();
-			long i = this.Length - (11 + _length2*2 + (_addFour ? 4 : 0));
-			long k = 0;
-			while(k < i)
-			{
-				INode node = LogNode.NewNode(log, this, chunkOffset, root);
-				this.ChildNodes.Add(node);
-				k+= node.Length;
-				if (node is _x00)
-				{
-					root.ReachedEOS = true;
-					break;
-				}
-			}
 			
+			long i = this.Length - (11 + (_length2+1)*2 + (_addFour ? 4 : 0));
+			i -= 8;
+			while(i > 0 && !root.ReachedEOS)
+			{
+				Console.WriteLine("Current length: " + i);
+				INode node = LogNode.NewNode(log, this, chunkOffset, this.LogRoot);
+				this.ChildNodes.Add(node);
+				i -= node.Length;
+				
+				if (node is _x00)
+					root.ReachedEOS = true;
+			}
 		}
 		
 		public long Position { get; set; }

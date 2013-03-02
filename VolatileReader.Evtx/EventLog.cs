@@ -88,11 +88,14 @@ namespace VolatileReader.Evtx
 							h = reader.ReadBytes(2);
 							
 							if (h[0] != '*' || h[1] != '*')
-								throw new Exception("Bad event at position: " + (reader.BaseStream.Position-2));
+							{
+								Console.WriteLine("Bad event at position: " + reader.BaseStream.Position);
+								continue;
+							}
 							
 							reader.BaseStream.Position += 2; 
 							
-							uint el = reader.ReadUInt32();
+							uint el = reader.ReadUInt32() - 28;
 							long rid = reader.ReadInt64();
 							ulong ts = reader.ReadUInt64();
 							
@@ -101,8 +104,9 @@ namespace VolatileReader.Evtx
 							
 							int secs = (int)(ts / 10000);
 							DateTime timestamp = GetTime (secs);
+
 							LogRoot root = new LogRoot(reader, chunkOffset, el) { ParentLog = this, Offset = pos };
-							
+		
 							Console.WriteLine(root.ToXML());
 							
 							this.Roots.Add(root);

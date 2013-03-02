@@ -9,7 +9,7 @@ namespace VolatileReader.Evtx
 		
 		private _x0B (){}
 		
-		public _x0B (BinaryReader log, long chunkOffset, LogRoot root) 
+		public _x0B (BinaryReader log, long chunkOffset, LogRoot root, INode parent) 
 		{
 			this.Position = log.BaseStream.Position;
 			this.SelfEnclosed = true;

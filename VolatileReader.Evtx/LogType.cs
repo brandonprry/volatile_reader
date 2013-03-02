@@ -5,17 +5,17 @@ namespace VolatileReader.Evtx
 {
 	public static class LogType
 	{
-		public static IType NewType(BinaryReader log, short[] sizetype, long chunkOffset, LogRoot root)
+		public static IType NewType(BinaryReader log, short[] sizetype, long chunkOffset, LogRoot root, bool isSubstArray)
 		{
 			short size = sizetype[0];
 			short type = sizetype[1];
 			
-			Console.WriteLine("New type " + type + " at offset: " + (log.BaseStream.Position-chunkOffset-1));
+			Console.WriteLine("New type " + type + " at offset: " + (log.BaseStream.Position-chunkOffset));
 			
 			if (type == 0x00)
 				return new Type0x00(log, size);
 			else if (type == 0x01)
-				return new Type0x01(log, size);
+				return new Type0x01(log, size, isSubstArray);
 			else if (type == 0x02)
 				return new Type0x02(log, size);
 			else if (type == 0x03)

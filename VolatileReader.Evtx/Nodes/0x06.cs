@@ -6,11 +6,10 @@ namespace VolatileReader.Evtx
 	public class _x06 : INode
 	{
 		byte[] _str;
-		int _posdiff;
 	
 		private _x06 (){}
 		
-		public _x06 (BinaryReader log, long chunkOffset, LogRoot root) 
+		public _x06 (BinaryReader log, long chunkOffset, LogRoot root, INode parent) 
 		{		
 			this.Position = log.BaseStream.Position;
 			this.ChunkOffset = chunkOffset;
@@ -20,18 +19,19 @@ namespace VolatileReader.Evtx
 			log.BaseStream.Position  = this.ChunkOffset + ptr;
 			
 			this.LogRoot = root;
+			this.Length = 5; //tag length
 			
 			int next = log.ReadInt32();
 			int hash = log.ReadInt16();
 			int length2 = log.ReadInt16();
 			
-			this.Length = 5;
-			
 			_str = log.ReadBytes((int)(length2*2));
-			_posdiff = 2;
-			log.BaseStream.Position +=_posdiff;
+			log.BaseStream.Position +=2;
 			
 			this.String = System.Text.Encoding.Unicode.GetString(_str);
+			
+			this.Length +=(length2+1)*2;
+			this.Length += 8;
 		}
 		
 		public string String { get;  set; }

@@ -2,5 +2,6 @@
 bin
 obj
 
+*.pidb
 # mstest test results
 TestResults

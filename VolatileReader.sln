@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VolatileReader", "VolatileReader\VolatileReader.csproj", "{19D8EDA6-AFC5-4D0A-856D-AEA41617735D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VolatileReader.Registry", "VolatileReader.Registry\VolatileReader.Registry.csproj", "{2E915FA2-A3D8-425F-A896-42B0E6881CDD}"
@@ -69,6 +69,6 @@ Global
 		{793CF15C-559C-4BE2-8622-5F1CFC3BEB10}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = VolatilePagefileReader\VolatilePagefileReader.csproj
+		StartupItem = VolatileEventLogReader\VolatileEventLogReader.csproj
 	EndGlobalSection
 EndGlobal

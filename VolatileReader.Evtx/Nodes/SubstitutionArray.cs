@@ -33,7 +33,7 @@ namespace VolatileReader.Evtx
 				this.Types = new List<IType>();
 				
 				for (int i = 0; i < this.ElementCount; i++)
-					this.Types.Add(LogType.NewType(reader, sizetype[i], this.ChunkOffset, root));
+					this.Types.Add(LogType.NewType(reader, sizetype[i], this.ChunkOffset, root, true));
 			}
 		}
 		

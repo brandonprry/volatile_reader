@@ -12,37 +12,24 @@ namespace VolatileReader.Evtx
 			this.Position = log.BaseStream.Position;
 			this.ChunkOffset = chunkOffset;
 			this.Nodes = new List<INode>();
-			this.ReachedEOS = false;
-			
-			this.SubstitutionArrays = new List<SubstitutionArray>();
-			
-			int k = 0;
-			long l = 0;
-			while (l < length)
+			this.Length = length;
+		
+			while (this.Length > 0 && !this.ReachedEOS)
 			{
-				this.ReachedEOS = false;
-				while (!this.ReachedEOS)
-				{
-					INode node = LogNode.NewNode(log, this, chunkOffset, this);
-					l += node.Length;
-					node.SubstitutionArray = k;
-					this.Nodes.Add(node);
+				INode node = LogNode.NewNode(log, this, chunkOffset, this);
+				this.Nodes.Add(node);
+				this.Length -= node.Length;
 				
-					if (node is _x00)
-					{
-						this.ReachedEOS = true;
-						break;
-					}
-				}
-			
-				this.SubstitutionArrays.Add(new SubstitutionArray(log, chunkOffset, this));
-				k++;
+				if (node is _x00)
+					this.ReachedEOS = true;
 			}
+			
+			this.SubstitutionArray = new SubstitutionArray(log, chunkOffset, this);
 		}
 		
 		public long Position { get; set; }
 		
-		public List<SubstitutionArray> SubstitutionArrays { get; set; }
+		public SubstitutionArray SubstitutionArray { get; set; }
 		
 		public int TagState { get; set; }
 		public int ElementType { get; set; }
@@ -51,17 +38,8 @@ namespace VolatileReader.Evtx
 		
 		public string String { get; set; }
 		
-		public long Length 
-		{
-			get
-			{
-				throw new Exception();
-			}
-			
-			set {}
-		}
-		
-		public int SubstitutionArray { get; set; }
+		public long Length { get; set; }
+	
 		public bool ReachedEOS { get; set; }
 		
 		public string DeferedXML { get; set; } 

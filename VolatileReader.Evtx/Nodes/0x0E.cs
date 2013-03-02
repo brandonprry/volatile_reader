@@ -7,7 +7,7 @@ namespace VolatileReader.Evtx
 	{
 		private _x0E (){}
 		
-		public _x0E (BinaryReader log, long chunkOffset, LogRoot root)
+		public _x0E (BinaryReader log, long chunkOffset, LogRoot root, INode parent)
 		{
 			this.Position = log.BaseStream.Position;
 			this.Index = log.ReadInt16();
@@ -38,9 +38,9 @@ namespace VolatileReader.Evtx
 			this.LogRoot.DeferedXML = string.Empty;
 			
 			if (this.TagState == 0)
-				xml += this.LogRoot.SubstitutionArrays[this.SubstitutionArray].Types[this.Index].String;
+				xml += this.LogRoot.SubstitutionArray.Types[this.Index].String;
 			else if (this.TagState == 1)
-				xml += "=\"" + this.LogRoot.SubstitutionArrays[this.SubstitutionArray].Types[this.Index].String + "\"";
+				xml += "=\"" + this.LogRoot.SubstitutionArray.Types[this.Index].String + "\"";
 			else throw new Exception();
 			
 			return xml;

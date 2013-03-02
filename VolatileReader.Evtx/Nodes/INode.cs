@@ -17,7 +17,6 @@ namespace VolatileReader.Evtx
 		
 		string String { get; set; }
 		
-		int SubstitutionArray { get; set; }
 		
 		string ToXML();
 	}
