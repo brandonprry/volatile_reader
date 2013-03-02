@@ -27,7 +27,7 @@ namespace VolatileReader.Evtx
 			this.Length = log.ReadInt32();
 			long i = this.Length;
 			this.ChildNodes = new List<INode>();
-			while(i >0 && !root.ReachedEOS)
+			while(i >= 0 && !root.ReachedEOS)
 			{
 				Console.WriteLine("Current length: " + i);
 				INode node = LogNode.NewNode(log, this, chunkOffset, root);

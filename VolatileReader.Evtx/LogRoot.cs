@@ -14,7 +14,7 @@ namespace VolatileReader.Evtx
 			this.Nodes = new List<INode>();
 			this.Length = length;
 		
-			while (this.Length > 0 && !this.ReachedEOS)
+			while (this.Length >= 0 && !this.ReachedEOS)
 			{
 				INode node = LogNode.NewNode(log, this, chunkOffset, this);
 				this.Nodes.Add(node);

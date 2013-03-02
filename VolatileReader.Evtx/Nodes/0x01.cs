@@ -49,7 +49,7 @@ namespace VolatileReader.Evtx
 			
 			long i = this.Length - (11 + (_length2+1)*2 + (_addFour ? 4 : 0));
 			i -= 8;
-			while(i > 0 && !root.ReachedEOS)
+			while(i >= 0 && !root.ReachedEOS)
 			{
 				Console.WriteLine("Current length: " + i);
 				INode node = LogNode.NewNode(log, this, chunkOffset, this.LogRoot);
