@@ -16,21 +16,26 @@ namespace VolatileReader.Evtx
 			this.SelfEnclosed = true;
 			int ptr = log.ReadInt32();
 			
-			log.BaseStream.Position  = this.ChunkOffset + ptr;
-			
 			this.LogRoot = root;
 			this.Length = 5; //tag length
 			
-			int next = log.ReadInt32();
-			int hash = log.ReadInt16();
-			int length2 = log.ReadInt16();
+			if (!root.ParentLog.Strings.ContainsKey(this.ChunkOffset + ptr))
+			{
+				log.BaseStream.Position  = this.ChunkOffset + ptr;
+				
+				int next = log.ReadInt32();
+				int hash = log.ReadInt16();
+				int length2 = log.ReadInt16();
+				
+				_str = log.ReadBytes((int)(length2*2));
+				log.BaseStream.Position +=2;
+				
+				this.String = root.ParentLog.Strings[this.ChunkOffset + ptr] = System.Text.Encoding.Unicode.GetString(_str);
+				this.Length +=(length2+1)*2;
+			}
+			else
+				this.String = root.ParentLog.Strings[this.ChunkOffset + ptr];
 			
-			_str = log.ReadBytes((int)(length2*2));
-			log.BaseStream.Position +=2;
-			
-			this.String = System.Text.Encoding.Unicode.GetString(_str);
-			
-			this.Length +=(length2+1)*2;
 			this.Length += 8;
 		}
 		

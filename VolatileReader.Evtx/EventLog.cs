@@ -9,6 +9,8 @@ namespace VolatileReader.Evtx
 	{
 		public EventLog (string filename)
 		{
+			this.Strings = new Dictionary<long, string>();
+			
 			using (FileStream stream = File.OpenRead(filename))
 			{
 				using (BinaryReader reader = new BinaryReader(stream))
@@ -105,7 +107,7 @@ namespace VolatileReader.Evtx
 							int secs = (int)(ts / 10000);
 							DateTime timestamp = GetTime (secs);
 
-							LogRoot root = new LogRoot(reader, chunkOffset, el) { ParentLog = this, Offset = pos };
+							LogRoot root = new LogRoot(reader, chunkOffset, el, this) { Offset = pos };
 		
 							Console.WriteLine(root.ToXML());
 							
@@ -133,6 +135,8 @@ namespace VolatileReader.Evtx
 		private List<LogRoot> Roots { get; set; }
 		
 		public List<LogItem> Items { get; set; }
+		
+		public Dictionary<long, string> Strings { get; set; }
 		
 		public XmlDocument XmlDocument { get; set; }
 		

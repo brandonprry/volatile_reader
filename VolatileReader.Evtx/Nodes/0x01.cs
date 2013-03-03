@@ -31,23 +31,32 @@ namespace VolatileReader.Evtx
 			log.BaseStream.Position += 2; //short unk1
 			_length = log.ReadInt32 ();
 			_ptr = log.ReadInt32 ();
-			
-			log.BaseStream.Position = this.ChunkOffset + _ptr;
-			
-			_next = log.ReadInt32 ();
-			_hash = log.ReadInt16 ();
-			_length2 = log.ReadInt16 ();
-			
-			_posdiff = 2;
-			this.Length = _length + 6; //6?
-			
-			_str = log.ReadBytes ((int)(_length2 * 2));
-			log.BaseStream.Position += _posdiff + (_addFour ? 4 : 0);
-			this.String = System.Text.Encoding.Unicode.GetString (_str);
+			long i = 0;
+			if (!root.ParentLog.Strings.ContainsKey((long)(this.ChunkOffset + _ptr)))
+			{
+				log.BaseStream.Position = this.ChunkOffset + _ptr;
+				
+				_next = log.ReadInt32 ();
+				_hash = log.ReadInt16 ();
+				_length2 = log.ReadInt16 ();
+				
+				_posdiff = 2;
+				this.Length = _length + 6; //6?
+				
+				_str = log.ReadBytes ((int)(_length2 * 2));
+				log.BaseStream.Position += _posdiff + (_addFour ? 4 : 0);
+				this.String = root.ParentLog.Strings[this.ChunkOffset + _ptr] = System.Text.Encoding.Unicode.GetString (_str);
+				i = this.Length - (11 + (_length2+1)*2 + (_addFour ? 4 : 0));
+			}
+			else
+			{
+				this.String = root.ParentLog.Strings[this.ChunkOffset + _ptr];
+				_length2 = 0;
+				log.BaseStream.Position += (_addFour ? 4 : 0);
+				i = this.Length - (11 + (_addFour ? 4 : 0));
+			}
 			
 			this.ChildNodes = new List<INode>();
-			
-			long i = this.Length - (11 + (_length2+1)*2 + (_addFour ? 4 : 0));
 			i -= 8;
 			while(i >= 0 && !root.ReachedEOS)
 			{

@@ -25,12 +25,12 @@ namespace VolatileReader.Evtx
 		public long ChunkOffset { get; set; }
 		public int SubstitutionArray { get; set; }
 		public LogRoot LogRoot { get; set; }
-		public string ToXML() { throw new Exception(); }
+		public string ToXML() { return "<0x0d>"; }
 		
 		public long Length { 
 			get
 			{
-				throw new Exception();
+				return 4;
 			}
 			set {}
 		}

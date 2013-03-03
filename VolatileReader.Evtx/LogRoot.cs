@@ -7,11 +7,13 @@ namespace VolatileReader.Evtx
 {
 	public class LogRoot : INode
 	{
-		public LogRoot (BinaryReader log, long chunkOffset, uint length)
+		public LogRoot (BinaryReader log, long chunkOffset, uint length, EventLog parent)
 		{	
+			this.ParentLog = parent;
 			this.Position = log.BaseStream.Position;
 			this.ChunkOffset = chunkOffset;
 			this.Nodes = new List<INode>();
+			this.Strings = new Dictionary<long, string>();
 			this.Length = length;
 		
 			while (this.Length >= 0 && !this.ReachedEOS)
@@ -37,6 +39,8 @@ namespace VolatileReader.Evtx
 		public List<INode> Nodes { get; set; }
 		
 		public string String { get; set; }
+		
+		public Dictionary<long, string> Strings { get; set; }
 		
 		public long Length { get; set; }
 	

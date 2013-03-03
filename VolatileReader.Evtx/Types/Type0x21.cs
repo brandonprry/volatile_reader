@@ -8,24 +8,9 @@ namespace VolatileReader.Evtx
 	{
 		public Type0x21 (BinaryReader log, int size, long chunkOffset, LogRoot root)
 		{	
-			this.ChildNodes = new List<INode>();	
+			LogRoot newRoot = new LogRoot(log, chunkOffset, (uint)size, root.ParentLog);
 			
-			while (!root.ReachedEOS)
-			{
-				INode node = LogNode.NewNode(log, null, chunkOffset, root);
-				this.ChildNodes.Add(node);
-				
-				if (node is _x00 || root.ReachedEOS)
-				{
-					root.ReachedEOS = true;
-					break;
-				}
-			}
-			
-			this.String = string.Empty;
-			
-			foreach (INode node in this.ChildNodes)
-				this.String += node.ToXML();
+			this.String = newRoot.ToXML();
 		}
 		
 		public LogRoot Root { get; set; }
