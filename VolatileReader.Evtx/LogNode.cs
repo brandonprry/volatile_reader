@@ -20,7 +20,9 @@ namespace VolatileReader.Evtx
 			
 			INode node = null;
 			if (op == 0x0f)
-				node = new _x0F(log, chunkOffset, root, parent);
+				node = new _x0F (log, chunkOffset, root, parent);
+			else if (op == 0x0a)
+				node = new _x0A (log, parent, root, chunkOffset);
 			else if (op == 0x0c)
 				node = new _x0C(log, chunkOffset, root, parent);
 			else if (op == 0x01)

@@ -31,9 +31,9 @@ namespace VolatileReader.Evtx
 					nextRecLow = reader.ReadInt32();
 					nextRecHigh = reader.ReadInt32();
 					
-					int numOld = (numOldHigh << 32) ^ numOldLow;
-					int numCur = (numCurHigh << 32) ^ numCurLow;
-					int nextRec = (nextRecHigh << 32) ^ nextRecLow;
+					int numOld = (numOldHigh << 32) | numOldLow;
+					int numCur = (numCurHigh << 32) | numCurLow;
+					int nextRec = (nextRecHigh << 32) | nextRecLow;
 					
 					byte[] headerPart, versionMinor, versionMajor, headerLen, chunkCount;
 					
@@ -53,7 +53,8 @@ namespace VolatileReader.Evtx
 					}
 					
 					int chunkc = BitConverter.ToInt16(chunkCount,0);
-					
+
+					this.Templates = new Dictionary<string, Template> ();
 					
 					long chunkOffset = 0x1000;
 					reader.BaseStream.Position = chunkOffset;
@@ -137,7 +138,9 @@ namespace VolatileReader.Evtx
 		public List<LogItem> Items { get; set; }
 		
 		public Dictionary<long, string> Strings { get; set; }
-		
+
+		public Dictionary<string, Template> Templates { get; set; }
+
 		public XmlDocument XmlDocument { get; set; }
 		
 		private DateTime GetTime(int time)

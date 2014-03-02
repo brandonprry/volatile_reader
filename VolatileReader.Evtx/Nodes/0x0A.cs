@@ -7,9 +7,14 @@ namespace VolatileReader.Evtx
 	{
 		private _x0A (){}
 		
-		public _x0A (BinaryReader reader)
+		public _x0A (BinaryReader log, INode parent, LogRoot root, long chunkOffset)
 		{
-			throw new NotImplementedException();
+			int length2 = BitConverter.ToInt16 (log.ReadBytes (2), 0);
+			long whoa = parent.Length - length2;
+
+			//string 
+
+			Console.WriteLine (length2);
 		}
 		
 		#region INode implementation

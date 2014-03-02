@@ -14,7 +14,18 @@ namespace VolatileReader.Evtx
 			this.ChunkOffset = chunkOffset;
 			this.Length = 10;
 			this.SelfEnclosed = true;
-			this.Template = new Template(log, chunkOffset, root) { Parent = this };
+			log.BaseStream.Position += 1;
+			int templateID = log.ReadInt32();
+			int ptr = log.ReadInt32();
+
+			if (this.ChunkOffset + ptr < log.BaseStream.Position) {
+				this.Template = root.ParentLog.Templates [ptr.ToString ()];
+			}
+			else {
+				this.Template = new Template (log, chunkOffset, root) { Parent = this };
+				root.ParentLog.Templates [ptr.ToString ()] = this.Template;
+			}
+
 			this.Length += this.Template.Length;
 		}
 		

@@ -8,14 +8,10 @@ namespace VolatileReader.Evtx
 	{
 		public Template (BinaryReader log, long chunkOffset, LogRoot root)
 		{
-			this.Position = log.BaseStream.Position;
 			this.LogRoot = root;
 			this.ChunkOffset = chunkOffset;
-			log.BaseStream.Position += 1;
-			int templateID = log.ReadInt32();
-			int ptr = log.ReadInt32();
-			
-			log.BaseStream.Position = this.ChunkOffset + ptr;
+			this.Position = log.BaseStream.Position;
+
 			
 			int nextTemplate = log.ReadInt32();
 			int templateID2 = log.ReadInt32();
@@ -27,6 +23,8 @@ namespace VolatileReader.Evtx
 			this.Length = log.ReadInt32();
 			long i = this.Length;
 			this.ChildNodes = new List<INode>();
+
+			//log.BaseStream.Position = this.Position;
 			while(i >= 0 && !root.ReachedEOS)
 			{
 				Console.WriteLine("Current length: " + i);

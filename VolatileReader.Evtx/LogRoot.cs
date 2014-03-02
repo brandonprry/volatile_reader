@@ -16,8 +16,9 @@ namespace VolatileReader.Evtx
 			this.Strings = new Dictionary<long, string>();
 			this.Length = length;
 		
-			while (this.Length >= 0 && !this.ReachedEOS)
+			while (this.Length > 0 && !this.ReachedEOS)
 			{
+				Console.WriteLine (this.Length);
 				INode node = LogNode.NewNode(log, this, chunkOffset, this);
 				this.Nodes.Add(node);
 				this.Length -= node.Length;
@@ -32,7 +33,7 @@ namespace VolatileReader.Evtx
 		public long Position { get; set; }
 		
 		public SubstitutionArray SubstitutionArray { get; set; }
-		
+
 		public int TagState { get; set; }
 		public int ElementType { get; set; }
 		
