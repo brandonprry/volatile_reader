@@ -85,6 +85,7 @@ namespace VolatileReader.Evtx
 
 		public string ToXML ()
 		{
+			this.LogRoot.CurrentOpenTags.Add(this.String);
 			string xml = "\n<" + this.String;
 			
 			foreach (INode child in this.ChildNodes)

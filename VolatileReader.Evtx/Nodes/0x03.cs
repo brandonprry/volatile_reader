@@ -25,6 +25,7 @@ namespace VolatileReader.Evtx
 		public LogRoot LogRoot { get; set; }
 		public string ToXML() 
 		{	
+			this.LogRoot.CurrentOpenTags.RemoveAt (this.LogRoot.CurrentOpenTags.Count - 1);
 			return " />"; 
 		}
 		public long ChunkOffset { get; set; }

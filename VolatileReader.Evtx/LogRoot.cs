@@ -14,6 +14,7 @@ namespace VolatileReader.Evtx
 			this.ChunkOffset = chunkOffset;
 			this.Nodes = new List<INode>();
 			this.Strings = new Dictionary<long, string>();
+			this.CurrentOpenTags = new List<string> ();
 			this.Length = length;
 		
 			while (this.Length > 0 && !this.ReachedEOS)
@@ -38,6 +39,11 @@ namespace VolatileReader.Evtx
 		public int ElementType { get; set; }
 		
 		public List<INode> Nodes { get; set; }
+
+		public List<string> CurrentOpenTags {
+			get;
+			set;
+		}
 		
 		public string String { get; set; }
 		

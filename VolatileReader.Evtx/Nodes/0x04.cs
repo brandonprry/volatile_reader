@@ -6,7 +6,7 @@ namespace VolatileReader.Evtx
 	public class _x04 : INode
 	{
 		private _x04 (){}
-		
+
 		public _x04 (BinaryReader reader, long chunkOffset, LogRoot root, INode parent)
 		{
 			this.Position = reader.BaseStream.Position;
@@ -27,7 +27,15 @@ namespace VolatileReader.Evtx
 		public LogRoot LogRoot { get; set; }
 		public string ToXML()
 		{	
-			return "</" + this.Parent.String + ">";
+			string str = string.Empty;
+
+			if (this.LogRoot.CurrentOpenTags.Count != 0)
+				str = "</" + this.LogRoot.CurrentOpenTags[this.LogRoot.CurrentOpenTags.Count-1] + ">";
+			else
+				str = "</" + this.Parent.String + ">";
+
+			this.LogRoot.CurrentOpenTags.RemoveAt(this.LogRoot.CurrentOpenTags.Count-1);
+			return str;
 		}
 		public long Length 
 		{

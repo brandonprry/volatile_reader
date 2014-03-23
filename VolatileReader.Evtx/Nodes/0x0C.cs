@@ -24,7 +24,7 @@ namespace VolatileReader.Evtx
 			else {
 				this.Template = new Template (log, chunkOffset, root) { Parent = this };
 				root.ParentLog.Templates [ptr.ToString ()] = this.Template;
-			}
+			}	
 
 			this.Length += this.Template.Length;
 		}
